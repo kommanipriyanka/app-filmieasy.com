@@ -8,7 +8,8 @@ import {
   Scripts,
 } from '@tanstack/react-router'
 import appCss from "@/styles/app.css?url"
-
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+const queryclient = new QueryClient();
 export const Route = createRootRoute({
   head: () => ({
     meta: [
@@ -36,7 +37,9 @@ export const Route = createRootRoute({
 function RootComponent() {
   return (
     <RootDocument>
-      <Outlet />
+      <QueryClientProvider client={queryclient}>
+        <Outlet />
+      </QueryClientProvider>
     </RootDocument>
   )
 }
