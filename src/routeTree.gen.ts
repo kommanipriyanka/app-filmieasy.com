@@ -9,38 +9,141 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LayoutRouteImport } from './routes/_layout'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LayoutTeamIndexRouteImport } from './routes/_layout/team/index'
+import { Route as LayoutSettingsIndexRouteImport } from './routes/_layout/settings/index'
+import { Route as LayoutProjectsIndexRouteImport } from './routes/_layout/projects/index'
+import { Route as LayoutLocationIndexRouteImport } from './routes/_layout/location/index'
+import { Route as LayoutExpensesIndexRouteImport } from './routes/_layout/expenses/index'
+import { Route as LayoutDistrbutionIndexRouteImport } from './routes/_layout/distrbution/index'
+import { Route as LayoutDashboardIndexRouteImport } from './routes/_layout/dashboard/index'
 
+const LayoutRoute = LayoutRouteImport.update({
+  id: '/_layout',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LayoutTeamIndexRoute = LayoutTeamIndexRouteImport.update({
+  id: '/team/',
+  path: '/team/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutSettingsIndexRoute = LayoutSettingsIndexRouteImport.update({
+  id: '/settings/',
+  path: '/settings/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutProjectsIndexRoute = LayoutProjectsIndexRouteImport.update({
+  id: '/projects/',
+  path: '/projects/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutLocationIndexRoute = LayoutLocationIndexRouteImport.update({
+  id: '/location/',
+  path: '/location/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutExpensesIndexRoute = LayoutExpensesIndexRouteImport.update({
+  id: '/expenses/',
+  path: '/expenses/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutDistrbutionIndexRoute = LayoutDistrbutionIndexRouteImport.update({
+  id: '/distrbution/',
+  path: '/distrbution/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutDashboardIndexRoute = LayoutDashboardIndexRouteImport.update({
+  id: '/dashboard/',
+  path: '/dashboard/',
+  getParentRoute: () => LayoutRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof LayoutDashboardIndexRoute
+  '/distrbution': typeof LayoutDistrbutionIndexRoute
+  '/expenses': typeof LayoutExpensesIndexRoute
+  '/location': typeof LayoutLocationIndexRoute
+  '/projects': typeof LayoutProjectsIndexRoute
+  '/settings': typeof LayoutSettingsIndexRoute
+  '/team': typeof LayoutTeamIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard': typeof LayoutDashboardIndexRoute
+  '/distrbution': typeof LayoutDistrbutionIndexRoute
+  '/expenses': typeof LayoutExpensesIndexRoute
+  '/location': typeof LayoutLocationIndexRoute
+  '/projects': typeof LayoutProjectsIndexRoute
+  '/settings': typeof LayoutSettingsIndexRoute
+  '/team': typeof LayoutTeamIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_layout': typeof LayoutRouteWithChildren
+  '/_layout/dashboard/': typeof LayoutDashboardIndexRoute
+  '/_layout/distrbution/': typeof LayoutDistrbutionIndexRoute
+  '/_layout/expenses/': typeof LayoutExpensesIndexRoute
+  '/_layout/location/': typeof LayoutLocationIndexRoute
+  '/_layout/projects/': typeof LayoutProjectsIndexRoute
+  '/_layout/settings/': typeof LayoutSettingsIndexRoute
+  '/_layout/team/': typeof LayoutTeamIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/distrbution'
+    | '/expenses'
+    | '/location'
+    | '/projects'
+    | '/settings'
+    | '/team'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/dashboard'
+    | '/distrbution'
+    | '/expenses'
+    | '/location'
+    | '/projects'
+    | '/settings'
+    | '/team'
+  id:
+    | '__root__'
+    | '/'
+    | '/_layout'
+    | '/_layout/dashboard/'
+    | '/_layout/distrbution/'
+    | '/_layout/expenses/'
+    | '/_layout/location/'
+    | '/_layout/projects/'
+    | '/_layout/settings/'
+    | '/_layout/team/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LayoutRoute: typeof LayoutRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_layout': {
+      id: '/_layout'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof LayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +151,84 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_layout/team/': {
+      id: '/_layout/team/'
+      path: '/team'
+      fullPath: '/team'
+      preLoaderRoute: typeof LayoutTeamIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/settings/': {
+      id: '/_layout/settings/'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof LayoutSettingsIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/projects/': {
+      id: '/_layout/projects/'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof LayoutProjectsIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/location/': {
+      id: '/_layout/location/'
+      path: '/location'
+      fullPath: '/location'
+      preLoaderRoute: typeof LayoutLocationIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/expenses/': {
+      id: '/_layout/expenses/'
+      path: '/expenses'
+      fullPath: '/expenses'
+      preLoaderRoute: typeof LayoutExpensesIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/distrbution/': {
+      id: '/_layout/distrbution/'
+      path: '/distrbution'
+      fullPath: '/distrbution'
+      preLoaderRoute: typeof LayoutDistrbutionIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/dashboard/': {
+      id: '/_layout/dashboard/'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof LayoutDashboardIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
   }
 }
 
+interface LayoutRouteChildren {
+  LayoutDashboardIndexRoute: typeof LayoutDashboardIndexRoute
+  LayoutDistrbutionIndexRoute: typeof LayoutDistrbutionIndexRoute
+  LayoutExpensesIndexRoute: typeof LayoutExpensesIndexRoute
+  LayoutLocationIndexRoute: typeof LayoutLocationIndexRoute
+  LayoutProjectsIndexRoute: typeof LayoutProjectsIndexRoute
+  LayoutSettingsIndexRoute: typeof LayoutSettingsIndexRoute
+  LayoutTeamIndexRoute: typeof LayoutTeamIndexRoute
+}
+
+const LayoutRouteChildren: LayoutRouteChildren = {
+  LayoutDashboardIndexRoute: LayoutDashboardIndexRoute,
+  LayoutDistrbutionIndexRoute: LayoutDistrbutionIndexRoute,
+  LayoutExpensesIndexRoute: LayoutExpensesIndexRoute,
+  LayoutLocationIndexRoute: LayoutLocationIndexRoute,
+  LayoutProjectsIndexRoute: LayoutProjectsIndexRoute,
+  LayoutSettingsIndexRoute: LayoutSettingsIndexRoute,
+  LayoutTeamIndexRoute: LayoutTeamIndexRoute,
+}
+
+const LayoutRouteWithChildren =
+  LayoutRoute._addFileChildren(LayoutRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LayoutRoute: LayoutRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
