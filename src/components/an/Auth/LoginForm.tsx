@@ -11,12 +11,8 @@ import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
 import { LoginFormProps } from "@/lib/interfaces/Auth";
 import FilmEasy from "@/components/Icons/Auth/FilmEasy";
-import MovieIcon from "../../Icons/Auth/MovieIcon";
-import Violet from "@/components/Icons/Auth/Violet";
-import Green from "@/components/Icons/Auth/Green";
-import Brow from "@/components/Icons/Auth/Brow";
 import { useNavigate } from "@tanstack/react-router";
-
+import loginBg from "@/assets/login-bg.webp"; 
 function LoginForm({
   email,
   setEmail,
@@ -34,28 +30,13 @@ function LoginForm({
 }: LoginFormProps) {
   const navigate = useNavigate();
   return (
-    <div className="relative min-h-screen flex items-center justify-center gap-2 top-[-50px] overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent pointer-events-none"></div>
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute top-[-20%] left-[-10%] w-[120%] h-[120%]"
-          style={{ opacity: 0.4 }}
-        >
-          <Violet />
-        </div>
-        <div
-          className="absolute bottom-[-10%] left-[-5%] w-full h-full"
-          style={{ opacity: 0.35 }}
-        >
-          <Green />
-        </div>
-        <div
-          className="absolute bottom-[0%] right-[0%] w-[60%] h-[60%]"
-          style={{ opacity: 0.2 }}
-        >
-          <Brow />
-        </div>
-      </div>
+    <div className="relative min-h-screen flex items-center justify-center gap-2 overflow-hidden">
+      <img
+        src={loginBg} 
+        alt="Background"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+
       <div className="w-full max-w-sm space-y-4 relative z-20">
         <div className="text-center space-y-1">
           <div className="flex justify-center w-full">
@@ -98,7 +79,8 @@ function LoginForm({
               </div>
               <div className="space-y-2">
                 <Label htmlFor="password" className="text-white">
-                  Password <span className="text-(--an-card-error-color)"> *</span>
+                  Password{" "}
+                  <span className="text-(--an-card-error-color)"> *</span>
                 </Label>
                 <div className="relative">
                   <Input
@@ -155,11 +137,6 @@ function LoginForm({
             </div>
           </CardContent>
         </Card>
-      </div>
-      <div className="fixed bottom-0 left-0 right-0 w-full flex justify-center pointer-events-none z-10">
-        <div className="w-3/4 sm:w-2/3 md:w-1/2 lg:w-2/5 max-h-32 sm:max-h-40 md:max-h-48">
-          <MovieIcon />
-        </div>
       </div>
     </div>
   );

@@ -54,6 +54,21 @@ export interface SignupFormProps {
   onConfirmPasswordChange: (value: string) => void;
   onSignup: () => void;
   onLogin: () => void;
+  fullNameError: string;
+  setFullNameError: (error: string) => void;
+  emailError: string;
+  setEmailError: (error: string) => void;
+  phoneError: string;
+  setPhoneError: (error: string) => void;
+  passwordError: string;
+  setPasswordError: (error: string) => void;
+  confirmPasswordError: string;
+  setConfirmPasswordError: (error: string) => void;
+  showPassword: boolean;
+  setShowPassword: (value: boolean) => void;
+  showConfirmPassword: boolean;
+  setShowConfirmPassword: (value: boolean) => void;
+  isLoading: boolean;
 }
 
 export interface User {

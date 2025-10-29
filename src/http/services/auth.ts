@@ -16,7 +16,7 @@ export const userLoginApi = async ({email, password}: {email: string | null, pas
 
 export const userSignupApi = async ({full_name, email, phone, password}: {full_name: string, email: string, phone: string, password: string}): Promise<SignupResponse> => {
   try {
-    const response = await $fetch.post("/auth", {
+    const response = await $fetch.post("/auth/signup", {
       full_name,
       email,
       phone,

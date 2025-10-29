@@ -11,28 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
 import { SignupFormProps } from "@/lib/interfaces/Auth";
 import FilmEasy from "@/components/Icons/Auth/FilmEasy";
-import MovieIcon from "../../Icons/Auth/MovieIcon";
-import Violet from "@/components/Icons/Auth/Violet";
-import Green from "@/components/Icons/Auth/Green";
-import Brow from "@/components/Icons/Auth/Brow";
-
-interface ExtendedSignupFormProps extends SignupFormProps {
-  fullNameError: string;
-  setFullNameError: (error: string) => void;
-  emailError: string;
-  setEmailError: (error: string) => void;
-  phoneError: string;
-  setPhoneError: (error: string) => void;
-  passwordError: string;
-  setPasswordError: (error: string) => void;
-  confirmPasswordError: string;
-  setConfirmPasswordError: (error: string) => void;
-  showPassword: boolean;
-  setShowPassword: (value: boolean) => void;
-  showConfirmPassword: boolean;
-  setShowConfirmPassword: (value: boolean) => void;
-  isLoading: boolean;
-}
+import loginBg from "@/assets/login-bg.webp"; 
 
 function SignupForm({
   fullName,
@@ -62,30 +41,14 @@ function SignupForm({
   onSignup,
   onLogin,
   isLoading,
-}: ExtendedSignupFormProps) {
+}: SignupFormProps) {
   return (
-    <div className="relative min-h-screen flex items-center justify-center gap-2 top-[-50px] overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent pointer-events-none"></div>
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute top-[-20%] left-[-10%] w-[120%] h-[120%]"
-          style={{ opacity: 0.4 }}
-        >
-          <Violet />
-        </div>
-        <div
-          className="absolute bottom-[-10%] left-[-5%] w-full h-full"
-          style={{ opacity: 0.35 }}
-        >
-          <Green />
-        </div>
-        <div
-          className="absolute bottom-[0%] right-[0%] w-[60%] h-[60%]"
-          style={{ opacity: 0.2 }}
-        >
-          <Brow />
-        </div>
-      </div>
+    <div className="relative h-screen flex items-center justify-center gap-2 overflow-hidden">
+      <img
+        src={loginBg} 
+        alt="Background"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
       <div className="w-full max-w-md space-y-4 relative z-20">
         <div className="text-center space-y-1">
           <div className="flex justify-center w-full">
@@ -259,11 +222,6 @@ function SignupForm({
             </div>
           </CardContent>
         </Card>
-      </div>
-      <div className="fixed bottom-0 left-0 right-0 w-full flex justify-center pointer-events-none z-10">
-        <div className="w-3/4 sm:w-2/3 md:w-1/2 lg:w-2/5 max-h-32 sm:max-h-40 md:max-h-48">
-          <MovieIcon />
-        </div>
       </div>
     </div>
   );
