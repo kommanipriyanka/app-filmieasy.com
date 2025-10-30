@@ -105,7 +105,7 @@ function AddProjectForm({
                 </Button>
               )}
               {currentStep < 3 ? (
-                <Button onClick={onNext} disabled={isLoading} className="h-8 px-4 text-sm">
+                <Button onClick={onNext} disabled={isLoading} className="h-8 px-4 text-sm bg-zinc">
                   Next
                 </Button>
               ) : (
@@ -147,7 +147,7 @@ function AddProjectForm({
             ))}
           </div>
           
-          <div className="flex-1 overflow-y-auto pr-2">
+          <div className={`flex-1 ${currentStep === 2 ? 'overflow-hidden' : 'overflow-y-auto pr-2'}`}>
             {currentStep === 1 && (
               <ProjectDetails
                 formData={formData.project}

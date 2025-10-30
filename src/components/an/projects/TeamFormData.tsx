@@ -47,31 +47,29 @@ function CrewArtists({
   );
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-7xl mx-auto h-full">
-      <div className="space-y-6">
-        <div className="bg-zinc-900/40 backdrop-blur-sm border border-zinc-800/50 rounded-lg p-6 h-full">
-          <h3 className="text-sm font-medium mb-6 text-zinc-400 flex items-center gap-2">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-7xl mx-auto h-full">
+      <div className="space-y-4 h-full">
+        <div className="border border-zinc-800/50 rounded-lg p-4 h-full flex flex-col">
+          <h3 className="text-sm font-medium mb-4 text-zinc-300 flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
             Available Users
           </h3>
-          <div className="relative mb-4">
+          <div className="relative mb-3.5 flex-shrink-0">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400 h-4 w-4" />
             <Input
               placeholder="Search users"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 bg-black/40 border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-600"
+              className="pl-10 bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300"
             />
           </div>
-          <div className="space-y-3 max-h-[calc(100%-100px)] overflow-y-auto">
+          <div className="flex-1 overflow-y-auto space-y-3">
             {filteredUsers.map((user) => (
-              <div key={user.id} className="flex items-center justify-between p-3 bg-black/20 rounded-lg">
+              <div key={user.id} className="flex items-center justify-between p-3 bg-black/40 border border-zinc-800/50 rounded">
                 <div className="flex items-center gap-3">
-                  <img
-                    src={user.image || ""}
-                    alt={user.name}
-                    className="w-10 h-10 rounded-full object-cover"
-                  />
+                  <div className="w-10 h-10 rounded-full bg-zinc-600 flex items-center justify-center text-white text-sm font-medium">
+                    {user.name.charAt(0).toUpperCase()}
+                  </div>
                   <div>
                     <p className="text-white text-sm font-medium">{user.name}</p>
                     <p className="text-zinc-400 text-xs">{user.department}</p>
@@ -90,57 +88,38 @@ function CrewArtists({
           </div>
         </div>
       </div>
-      <div className="space-y-6">
-        <div className="bg-zinc-900/40 backdrop-blur-sm border border-zinc-800/50 rounded-lg p-6 h-full">
-          <h3 className="text-sm font-medium mb-6 text-zinc-400 flex items-center gap-2">
+      <div className="space-y-4 h-full">
+        <div className="bg-zinc-900/40 backdrop-blur-sm border border-zinc-800/50 rounded-lg p-4 h-full flex flex-col">
+          <h3 className="text-sm font-medium mb-4 text-zinc-300 flex items-center gap-2 flex-shrink-0">
             <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
             Project Team ({formData.members.length})
           </h3>
-          <div className="space-y-3 max-h-[calc(100%-50px)] overflow-y-auto">
-            {formData.members.map((member, index) => (
-              <div key={index} className="flex items-center gap-3 p-3 bg-black/20 rounded-lg">
-                <img
-                  src={availableUsers.find(u => u.id === member.userId)?.image || ""}
-                  alt={availableUsers.find(u => u.id === member.userId)?.name || ""}
-                  className="w-10 h-10 rounded-full object-cover"
-                />
-                <div className="flex-1">
-                  <p className="text-white text-sm font-medium">
-                    {availableUsers.find(u => u.id === member.userId)?.name}
-                  </p>
-                  {/* <div className="grid grid-cols-2 gap-2 mt-1">
-                    <Select value={member.department} onValueChange={(v) => onUpdateTeamMember(index, { department: v })}>
-                      <SelectTrigger className="bg-black/40 border-zinc-800/50 text-white h-8 text-xs">
-                        <SelectValue placeholder="Department" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-zinc-900 border-zinc-800">
-                        <SelectItem value="art" className="text-white">Art</SelectItem>
-                        <SelectItem value="production" className="text-white">Production</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <Select value={member.role} onValueChange={(v) => onUpdateTeamMember(index, { role: v })}>
-                      <SelectTrigger className="bg-black/40 border-zinc-800/50 text-white h-8 text-xs">
-                        <SelectValue placeholder="Role" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-zinc-900 border-zinc-800">
-                        <SelectItem value="actor" className="text-white">Actor</SelectItem>
-                        <SelectItem value="director" className="text-white">Director</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div> */}
+          <div className="flex-1 overflow-y-auto space-y-3">
+            {formData.members.map((member, index) => {
+              const teamMember = availableUsers.find(u => u.id === member.userId);
+              return (
+                <div key={index} className="flex items-center gap-3 p-3 bg-black/40 border border-zinc-800/50 rounded">
+                  <div className="w-10 h-10 rounded-full bg-zinc-600 flex items-center justify-center text-white text-sm font-medium">
+                    {teamMember?.name.charAt(0).toUpperCase()}
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-white text-sm font-medium">
+                      {teamMember?.name}
+                    </p>
+                  </div>
+                  <Button
+                    onClick={() => onRemoveTeamMember(index)}
+                    variant="ghost"
+                    size="sm"
+                    className="text-red-400 hover:text-red-300 h-8 px-3 text-xs"
+                  >
+                    ×
+                  </Button>
                 </div>
-                <Button
-                  onClick={() => onRemoveTeamMember(index)}
-                  variant="ghost"
-                  size="sm"
-                  className="text-red-400 hover:text-red-300 h-8 px-3 text-xs"
-                >
-                  ×
-                </Button>
-              </div>
-            ))}
+              );
+            })}
+            {errors.team && <p className="px-1 text-red-500 text-xs">{errors.team}</p>}
           </div>
-          {errors.team && <p className="text-red-500 text-xs mt-1">{errors.team}</p>}
         </div>
       </div>
     </div>

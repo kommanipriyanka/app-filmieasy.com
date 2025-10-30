@@ -23,7 +23,7 @@ import {
 
 function SideBar() {
   return (
-    <Sidebar className=" text-white p-3" collapsible="icon">
+    <Sidebar className=" text-white p-3 !border-r-0" collapsible="icon">
       <SidebarHeader className="flex items-center justify-center">
         <Logo />
         

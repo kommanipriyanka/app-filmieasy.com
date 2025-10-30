@@ -81,37 +81,37 @@ function ScriptSceneBuilder({
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-7xl mx-auto h-full">
-      <div className="space-y-6">
-        <div className="bg-zinc-900/40 backdrop-blur-sm border border-zinc-800/50 rounded-lg p-6 h-full">
-          <h3 className="text-sm font-medium mb-6 text-zinc-400 flex items-center gap-2">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-7xl mx-auto h-full">
+      <div className="space-y-4 h-full">
+        <div className="border border-zinc-800/50 rounded-lg p-4 h-full flex flex-col">
+          <h3 className="text-sm font-medium mb-4 text-zinc-300 flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
             Scenes
           </h3>
-          <div className="space-y-4 mb-4">
+          <div className="space-y-3.5 flex-shrink-0">
             <div>
-              <Label className="text-xs text-zinc-400 mb-2 block">Scene Name</Label>
+              <Label className="text-xs text-zinc-300 mb-2 block">Scene Name</Label>
               <Input
                 value={newScene.name}
                 onChange={(e) => setNewScene({ ...newScene, name: e.target.value })}
-                className="bg-black/40 border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-600"
+                className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300"
                 placeholder="Enter scene name"
               />
             </div>
             <div>
-              <Label className="text-xs text-zinc-400 mb-2 block">Description</Label>
+              <Label className="text-xs text-zinc-300 mb-2 block">Description</Label>
               <Textarea
                 value={newScene.description}
                 onChange={(e) => setNewScene({ ...newScene, description: e.target.value })}
-                className="bg-black/40 border-zinc-800/50 text-white h-20 text-sm placeholder:text-zinc-600 resize-none"
+                className="bg-(--input-bg) border-zinc-800/50 text-white h-20 text-sm placeholder:text-zinc-300 resize-none"
                 placeholder="Enter scene description"
               />
             </div>
             <div>
-              <Label className="text-xs text-zinc-400 mb-2 block">Select Members</Label>
+              <Label className="text-xs text-zinc-300 mb-2 block">Select Members</Label>
               <Select value={newScene.members[0] || ""} onValueChange={(v) => setNewScene({ ...newScene, members: [v] })}>
-                <SelectTrigger className="bg-black/40 border-zinc-800/50 text-white h-10 text-sm">
-                  <SelectValue placeholder="Select membership" />
+                <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm">
+                  <SelectValue placeholder="Select member" />
                 </SelectTrigger>
                 <SelectContent className="bg-zinc-900 border-zinc-800">
                   <SelectItem value="member1" className="text-white">Member 1</SelectItem>
@@ -120,10 +120,10 @@ function ScriptSceneBuilder({
               </Select>
             </div>
             <div>
-              <Label className="text-xs text-zinc-400 mb-2 block">Select Location</Label>
+              <Label className="text-xs text-zinc-300 mb-2 block">Select Location</Label>
               <Select value={newScene.location} onValueChange={(v) => setNewScene({ ...newScene, location: v })}>
-                <SelectTrigger className="bg-black/40 border-zinc-800/50 text-white h-10 text-sm">
-                  <SelectValue placeholder="Select" />
+                <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm">
+                  <SelectValue placeholder="Select location" />
                 </SelectTrigger>
                 <SelectContent className="bg-zinc-900 border-zinc-800">
                   <SelectItem value="studio" className="text-white">Studio</SelectItem>
@@ -133,14 +133,14 @@ function ScriptSceneBuilder({
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-xs text-zinc-400 mb-2 block">Select Date</Label>
+                <Label className="text-xs text-zinc-300 mb-2 block">Select Date</Label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
                       variant="outline"
                       className={cn(
-                        "w-full justify-start text-left font-normal bg-black/40 border-zinc-800/50 h-10 text-sm hover:bg-black/60",
-                        !newScene.date && "text-zinc-500"
+                        "w-full justify-start text-left font-normal bg-(--input-bg) border-zinc-800/50 h-10 text-sm hover:bg-zinc-800 hover:text-white",
+                        !newScene.date && "text-zinc-300"
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4 text-teal-400" />
@@ -159,32 +159,32 @@ function ScriptSceneBuilder({
                 </Popover>
               </div>
               <div>
-                <Label className="text-xs text-zinc-400 mb-2 block">Select Date & Time</Label>
+                <Label className="text-xs text-zinc-300 mb-2 block">Time</Label>
                 <div className="flex gap-2">
                   <Input
                     type="time"
                     value={newScene.timeFrom}
                     onChange={(e) => setNewScene({ ...newScene, timeFrom: e.target.value })}
-                    className="bg-black/40 border-zinc-800/50 text-white h-10 text-sm"
+                    className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300"
                   />
-                  <span className="text-zinc-400 self-center">-</span>
+                  <span className="text-zinc-300 self-center">-</span>
                   <Input
                     type="time"
                     value={newScene.timeTo}
                     onChange={(e) => setNewScene({ ...newScene, timeTo: e.target.value })}
-                    className="bg-black/40 border-zinc-800/50 text-white h-10 text-sm"
+                    className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300"
                   />
                 </div>
               </div>
             </div>
             <div>
-              <Label className="text-xs text-zinc-400 mb-2 block">Location Type</Label>
+              <Label className="text-xs text-zinc-300 mb-2 block">Location Type</Label>
               <RadioGroup value={newScene.locationType} onValueChange={(v) => setNewScene({ ...newScene, locationType: v as "indoor" | "outdoor" })} className="flex gap-4">
-                <div className="flex items-center gap-2 bg-black/40 border border-zinc-800/50 rounded px-3 py-2">
+                <div className="flex items-center gap-2 bg-(--input-bg) border border-zinc-800/50 rounded px-3 py-2">
                   <RadioGroupItem value="indoor" id="indoor" className="border-zinc-700" />
                   <Label htmlFor="indoor" className="text-xs text-zinc-300 cursor-pointer font-normal">Indoor</Label>
                 </div>
-                <div className="flex items-center gap-2 bg-black/40 border border-zinc-800/50 rounded px-3 py-2">
+                <div className="flex items-center gap-2 bg-(--input-bg) border border-zinc-800/50 rounded px-3 py-2">
                   <RadioGroupItem value="outdoor" id="outdoor" className="border-zinc-700" />
                   <Label htmlFor="outdoor" className="text-xs text-zinc-300 cursor-pointer font-normal">Outdoor</Label>
                 </div>
@@ -194,13 +194,13 @@ function ScriptSceneBuilder({
               + Add Scene
             </Button>
           </div>
-          <div className="space-y-3 max-h-[300px] overflow-y-auto">
+          <div className="flex-1 overflow-y-auto pr-2 space-y-3">
             {formData.scenes.map((scene, index) => (
-              <div key={index} className="p-3 bg-black/20 rounded-lg">
+              <div key={index} className="p-3 bg-(--input-bg) border border-zinc-800/50 rounded">
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
                     <p className="text-white text-sm font-medium">{scene.name}</p>
-                    <p className="text-zinc-400 text-xs">{scene.description}</p>
+                    <p className="text-zinc-300 text-xs">{scene.description}</p>
                   </div>
                   <Button
                     onClick={() => onRemoveScene(index)}
@@ -214,40 +214,40 @@ function ScriptSceneBuilder({
               </div>
             ))}
           </div>
-          {errors.scenes && <p className="text-red-500 text-xs mt-1">{errors.scenes}</p>}
+          {errors.scenes && <p className="text-red-500 text-xs mt-1 px-1">{errors.scenes}</p>}
         </div>
       </div>
-      <div className="space-y-6">
-        <div className="bg-zinc-900/40 backdrop-blur-sm border border-zinc-800/50 rounded-lg p-6 h-full flex flex-col">
-          <h3 className="text-sm font-medium mb-6 text-zinc-400 flex items-center gap-2">
+      <div className="space-y-4 h-full">
+        <div className="bg-zinc-900/40 backdrop-blur-sm border border-zinc-800/50 rounded-lg p-4 h-full flex flex-col">
+          <h3 className="text-sm font-medium mb-4 text-zinc-300 flex items-center gap-2 flex-shrink-0">
             <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
             Screenplay
           </h3>
-          <div className="space-y-4 flex-1">
+          <div className="space-y-3.5 flex-1">
             <div>
-              <Label className="text-xs text-zinc-400 mb-2 block">Title</Label>
+              <Label className="text-xs text-zinc-300 mb-2 block">Title</Label>
               <Input
                 value={formData.screenplayTitle}
                 onChange={(e) => onUpdateScreenplay({ screenplayTitle: e.target.value })}
-                className="bg-black/40 border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-600"
+                className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300"
                 placeholder="Untitled Screenplay"
               />
             </div>
             <div>
-              <Label className="text-xs text-zinc-400 mb-2 block">Subtitle</Label>
+              <Label className="text-xs text-zinc-300 mb-2 block">Subtitle</Label>
               <Input
                 value={formData.screenplaySubtitle}
                 onChange={(e) => onUpdateScreenplay({ screenplaySubtitle: e.target.value })}
-                className="bg-black/40 border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-600"
+                className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300"
                 placeholder="Subtitle"
               />
             </div>
             <div className="flex-1">
-              <Label className="text-xs text-zinc-400 mb-2 block">Content</Label>
+              <Label className="text-xs text-zinc-300 mb-2 block">Content</Label>
               <Textarea
                 value=""
                 onChange={() => {}}
-                className="bg-black/40 border-zinc-800/50 text-white h-full text-sm placeholder:text-zinc-600 resize-none"
+                className="bg-(--input-bg) border-zinc-800/50 text-white flex-1 text-sm placeholder:text-zinc-300 resize-none"
                 placeholder="Screenplay content..."
               />
             </div>

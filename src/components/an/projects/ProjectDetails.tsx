@@ -41,33 +41,33 @@ function ProjectDetails({
   errors,
 }: ProjectDetailsProps) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-7xl mx-auto">
-      <div className="space-y-6">
-        <div className=" border border-zinc-800/50 rounded-lg p-6">
-          <h3 className="text-sm font-medium mb-6 text-zinc-400 flex items-center gap-2">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-7xl mx-auto">
+      <div className="space-y-4">
+        <div className="border border-zinc-800/50 rounded-lg p-4">
+          <h3 className="text-sm font-medium mb-4 text-zinc-300 flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
             Basic Info
           </h3>
-          <div className="space-y-5">
+          <div className="space-y-3.5">
             <div>
-              <Label className="text-xs text-zinc-400 mb-2 block">
+              <Label className="text-xs text-zinc-300 mb-2 block">
                 Project Name
               </Label>
               <Input
                 value={formData.name}
                 onChange={(e) => onUpdate({ name: e.target.value })}
-                className="bg-black/40 border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-600"
+                className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300"
                 placeholder="Enter full name"
               />
               {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-xs text-zinc-400 mb-2 block">
+                <Label className="text-xs text-zinc-300 mb-2 block">
                   Project Status
                 </Label>
                 <Select value={formData.status} onValueChange={(v) => onUpdate({ status: v })}>
-                  <SelectTrigger className="bg-black/40 border-zinc-800/50 text-white h-10 text-sm">
+                  <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm">
                     <SelectValue placeholder="Select status" />
                   </SelectTrigger>
                   <SelectContent className="bg-zinc-900 border-zinc-800">
@@ -79,11 +79,11 @@ function ProjectDetails({
                 {errors.status && <p className="text-red-500 text-xs mt-1">{errors.status}</p>}
               </div>
               <div>
-                <Label className="text-xs text-zinc-400 mb-2 block">
+                <Label className="text-xs text-zinc-300 mb-2 block">
                   Genre
                 </Label>
                 <Select value={formData.genre} onValueChange={(v) => onUpdate({ genre: v })}>
-                  <SelectTrigger className="bg-black/40 border-zinc-800/50 text-white h-10 text-sm">
+                  <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm">
                     <SelectValue placeholder="Select genre" />
                   </SelectTrigger>
                   <SelectContent className="bg-zinc-900 border-zinc-800">
@@ -97,11 +97,11 @@ function ProjectDetails({
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-xs text-zinc-400 mb-2 block">
+                <Label className="text-xs text-zinc-300 mb-2 block">
                   Language
                 </Label>
                 <Select value={formData.language} onValueChange={(v) => onUpdate({ language: v })}>
-                  <SelectTrigger className="bg-black/40 border-zinc-800/50 text-white h-10 text-sm">
+                  <SelectTrigger className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm">
                     <SelectValue placeholder="Select language" />
                   </SelectTrigger>
                   <SelectContent className="bg-zinc-900 border-zinc-800">
@@ -114,24 +114,24 @@ function ProjectDetails({
               </div>
             </div>
             <div>
-              <Label className="text-xs text-zinc-400 mb-2 block">Description</Label>
+              <Label className="text-xs text-zinc-300 mb-2 block">Description</Label>
               <Input
                 value={formData.description}
                 onChange={(e) => onUpdate({ description: e.target.value })}
-                className="bg-black/40 border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-600"
+                className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300"
                 placeholder="Enter description"
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-xs text-zinc-400 mb-2 block">Start Date</Label>
+                <Label className="text-xs text-zinc-300 mb-2 block">Start Date</Label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
                       variant="outline"
                       className={cn(
-                        "w-full justify-start text-left font-normal bg-black/40 border-zinc-800/50 h-10 text-sm hover:bg-black/60",
-                        !formData.startDate && "text-zinc-500"
+                        "w-full justify-start text-left font-normal bg-(--input-bg) border-zinc-800/50 h-10 text-sm hover:bg-zinc-800 hover:text-white",
+                        !formData.startDate && "text-zinc-300"
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4 text-teal-400" />
@@ -151,14 +151,14 @@ function ProjectDetails({
                 {errors.startDate && <p className="text-red-500 text-xs mt-1">{errors.startDate}</p>}
               </div>
               <div>
-                <Label className="text-xs text-zinc-400 mb-2 block">End Date</Label>
+                <Label className="text-xs text-zinc-300 mb-2 block">End Date</Label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
                       variant="outline"
                       className={cn(
-                        "w-full justify-start text-left font-normal bg-black/40 border-zinc-800/50 h-10 text-sm hover:bg-black/60",
-                        !formData.endDate && "text-zinc-500"
+                        "w-full justify-start text-left font-normal bg-(--input-bg) border-zinc-800/50 h-10 text-sm hover:bg-zinc-800 hover:text-white",
+                        !formData.endDate && "text-zinc-300"
                       )}
                     >
                       <CalendarIcon className="mr-2 h-4 w-4 text-teal-400" />
@@ -179,11 +179,11 @@ function ProjectDetails({
               </div>
             </div>
             <div>
-              <Label className="text-xs text-zinc-400 mb-2 block">Estimated Budget Details</Label>
+              <Label className="text-xs text-zinc-300 mb-2 block">Estimated Budget Details</Label>
               <Input
                 value={formData.estimatedBudget}
                 onChange={(e) => onUpdate({ estimatedBudget: e.target.value })}
-                className="bg-black/40 border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-600"
+                className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300"
                 placeholder="Enter estimated budget details"
               />
               {errors.estimatedBudget && <p className="text-red-500 text-xs mt-1">{errors.estimatedBudget}</p>}
