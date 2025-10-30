@@ -1,46 +1,48 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useLocation, useNavigate } from "@tanstack/react-router";
-import { getUserProjectsAPI } from "@/http/services/team";
+import { getUserProfileAPI, getUserProjectsAPI } from "@/http/services/team";
+import UserProfileView from "../an/Team/user/UserProfileView";
 
 function UserProfile() {
-  const { userId } = useParams();
+  const { id } = useParams({ strict: false });
   const location = useLocation();
   const navigate = useNavigate();
 
   const searchParams = new URLSearchParams(location.search);
   const initialTab = searchParams.get("tab") || "projects";
-  const initialFilter = searchParams.get("filter") || "all";
 
   const [activeTab, setActiveTab] = useState(initialTab);
-  const [projectFilter, setProjectFilter] = useState(initialFilter);
 
+  // Sync activeTab with URL changes
   useEffect(() => {
-    const sp = new URLSearchParams(location.search);
-    setActiveTab(sp.get("tab") || "projects");
-    setProjectFilter(sp.get("filter") || "all");
+    const tab = new URLSearchParams(location.search).get("tab") || "projects";
+    setActiveTab(tab);
   }, [location.search]);
 
-  const { data: userProfile, isLoading: profileLoading } = useQuery({
-    queryKey: ["userProfile", userId],
+  // Fetch user profile
+  const { data: userProfile, isLoading: profileLoading, error: profileError } = useQuery({
+    queryKey: ["userProfile", id],
     queryFn: async () => {
-      const response = await getUserProfileAPI(userId);
+      if (!id) throw new Error("User ID is required");
+      const response = await getUserProfileAPI(id.toString());
       return response?.data?.data;
     },
+    enabled: !!id,
   });
 
-  const { data: projectsData, isLoading: projectsLoading } = useQuery({
-    queryKey: ["userProjects", userId, projectFilter],
+  // Fetch user projects
+  const { data: projectsData, isLoading: projectsLoading, error: projectsError } = useQuery({
+    queryKey: ["userProjects", id],
     queryFn: async () => {
-      const params = new URLSearchParams();
-      if (projectFilter && projectFilter !== "all") {
-        params.append("status", projectFilter);
-      }
-      const response = await getUserProjectsAPI(userId);
-      return response?.data?.data?.records;
+      if (!id) throw new Error("User ID is required");
+      const response = await getUserProjectsAPI(id.toString());
+      return response?.data?.data?.records || [];
     },
+    enabled: !!id,
   });
 
+  // Transform profile data
   const transformedProfile = userProfile ? {
     name: userProfile.full_name,
     status: userProfile.availability_status,
@@ -58,9 +60,10 @@ function UserProfile() {
     association: userProfile.association_membership,
   } : null;
 
+  // Transform projects data
   const transformedProjects = (projectsData || []).map((project: any) => ({
     id: project.id,
-    name: project.project_name,
+    name: project.name,
     image: project.thumbnail_image,
     status: project.status,
     startDate: project.start_date,
@@ -73,21 +76,21 @@ function UserProfile() {
 
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
-    const params: Record<string, string> = { tab };
-    if (projectFilter !== "all") {
-      params.filter = projectFilter;
-    }
-    navigate({ search: params });
+    navigate({
+      search: (prev)  => ({ ...prev, tab }),
+    });
   };
 
-  const handleFilterChange = (filter: string) => {
-    setProjectFilter(filter);
-    const params: Record<string, string> = { tab: activeTab };
-    if (filter !== "all") {
-      params.filter = filter;
-    }
-    navigate({ search: params });
-  };
+  
+  if (profileError || projectsError) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center">
+        <div className="text-red-400">
+          Error loading user profile. Please try again.
+        </div>
+      </div>
+    );
+  }
 
   return (
     <UserProfileView
@@ -95,8 +98,6 @@ function UserProfile() {
       projects={transformedProjects}
       activeTab={activeTab}
       setActiveTab={handleTabChange}
-      projectFilter={projectFilter}
-      setProjectFilter={handleFilterChange}
       isLoading={profileLoading || projectsLoading}
     />
   );

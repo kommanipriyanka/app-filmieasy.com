@@ -38,8 +38,8 @@ function SideBar() {
                   to="/dashboard"
                 >
                   <div className="flex items-center gap-3 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-0.5">
-                    <DashLogo />
-                    <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
+                    <DashLogo  className="w-6 h-6"/>
+                    <span className="text-[10px]">
                       Dashboard
                     </span>
                   </div>
@@ -49,7 +49,7 @@ function SideBar() {
                   to="/projects"
                 >
                   <div className="flex items-center gap-3 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-0.5">
-                    <ProjLogo />
+                    <ProjLogo  className="w-6 h-6"/>
                     <span className="group-data-[collapsible=icon]:text-[10px] group-data-[collapsible=icon]:leading-tight">
                       Projects
                     </span>

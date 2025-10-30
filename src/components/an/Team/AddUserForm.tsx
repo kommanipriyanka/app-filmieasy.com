@@ -1,3 +1,4 @@
+// AddUserForm.tsx
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import PersonalDetails from "./PersonalDetails";
@@ -7,55 +8,7 @@ import { useNavigate } from "@tanstack/react-router";
 import screen1 from "@/assets/screen1.webp";
 import screen2 from "@/assets/screen1.webp";
 import screen3 from "@/assets/screen1.webp";
-
-interface FormData {
-  personal: {
-    fullName: string;
-    gender: string;
-    dob: string;
-    address: string;
-    phone: string;
-    email: string;
-    languages: { name: string }[];
-    profileImage?: string;
-  };
-  professional: {
-    department: string;
-    roleType: string;
-    experience: string;
-    unionMembership: string;
-    status: string;
-    blockFrom: string;
-    blockTo: string;
-  };
-  payment: {
-    rateType: string;
-    currency: string;
-    amount: string;
-    paymentMethod: string;
-    gstPan: string;
-    documents: File[];
-  };
-}
-
-interface AddUserFormProps {
-  currentStep: number;
-  formData: FormData;
-  departments: { id: string | number; name: string; count: number }[];
-  onUpdatePersonal: (updates: Partial<FormData["personal"]>) => void;
-  onUpdateProfessional: (updates: Partial<FormData["professional"]>) => void;
-  onUpdatePayment: (updates: Partial<FormData["payment"]>) => void;
-  onAddLanguage: () => void;
-  onRemoveLanguage: (index: number) => void;
-  onUpdateLanguage: (index: number, name: string) => void;
-  onAddDocument: (file: File) => void;
-  onRemoveDocument: (index: number) => void;
-  onNext: () => void;
-  onPrev: () => void;
-  onSubmit: () => void;
-  isLoading: boolean;
-  errors: Record<string, string>;
-}
+import { AddUserFormProps } from "@/lib/interfaces/Team";
 
 function AddUserForm({
   currentStep,
@@ -66,7 +19,6 @@ function AddUserForm({
   onUpdatePayment,
   onAddLanguage,
   onRemoveLanguage,
-  onUpdateLanguage,
   onAddDocument,
   onRemoveDocument,
   onNext,
@@ -81,8 +33,8 @@ function AddUserForm({
   const currentBg = backgroundImages[currentStep - 1] || screen1;
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-black/80">
-      <div className="w-full max-w-7xl mx-auto h-[95vh] bg-zinc-900/20 border border-zinc-800 rounded-lg p-4 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center p-3 bg-black/80">
+      <div className="w-full max-w-7xl mx-auto h-[95vh] bg-zinc-900/20 border border-zinc-800 rounded-lg p-3 relative overflow-hidden">
         <img
           src={currentBg}
           alt="Background"
@@ -90,7 +42,7 @@ function AddUserForm({
         />
         
         <div className="relative z-10 h-full flex flex-col">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-3 gap-2">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-2 gap-2">
             <Button
               onClick={() => navigate({ to: "/team" })}
               variant="ghost"
@@ -116,7 +68,7 @@ function AddUserForm({
             </div>
           </div>
           
-          <div className="flex justify-center mb-3 overflow-x-auto pb-2 gap-4">
+          <div className="flex justify-center mb-2 overflow-x-auto pb-1 gap-3">
             {[1, 2, 3].map((step) => (
               <div
                 key={step}
@@ -147,14 +99,13 @@ function AddUserForm({
             ))}
           </div>
           
-          <div className="flex-1 overflow-y-auto pr-2">
+          <div className="flex-1 overflow-y-auto pr-1">
             {currentStep === 1 && (
               <PersonalDetails
                 formData={formData.personal}
                 onUpdate={onUpdatePersonal}
                 onAddLanguage={onAddLanguage}
                 onRemoveLanguage={onRemoveLanguage}
-                onUpdateLanguage={onUpdateLanguage}
                 errors={errors}
               />
             )}

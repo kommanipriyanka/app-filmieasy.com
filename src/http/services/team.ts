@@ -40,9 +40,18 @@ export const getAllUsersAPI = async (query = "") => {
 };
 
 
-export const getUserProjectsAPI = async (query = "") => {
+export const getUserProjectsAPI = async (userId: string) => {
   try {
-    const response = await $fetch.get(`/project?${query}`);
+    const response = await $fetch.get(`/user/${userId}/projects`);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getUserProfileAPI = async (userId: string) => {
+  try {
+    const response = await $fetch.get(`/user/${userId}`);
     return response;
   } catch (error) {
     throw error;

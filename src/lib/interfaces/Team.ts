@@ -77,3 +77,94 @@ export interface ArtistData {
   experience: string | null;
   department_id: number;
 }
+
+
+export interface UserProfile {
+  name: string;
+  status: string;
+  gender: string;
+  dob: string;
+  email: string;
+  phone: string;
+  address: string;
+  avatar?: string;
+  department: string;
+  languages: string[];
+  roleType: string;
+  talentTags: string[];
+  experience: string;
+  association: string;
+}
+
+export interface Project {
+  id: string | number;
+  name: string;
+  image: string;
+  status: string;
+  startDate: string;
+  endDate: string;
+  budget: string;
+  spent: string;
+  percentage: number;
+  teamMembers: { id: string; avatar?: string; name: string }[];
+}
+
+export interface UserProfileViewProps {
+  profile: UserProfile | null;
+  projects: Project[];
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
+  projectFilter: string;
+  setProjectFilter: (filter: string) => void;
+  isLoading: boolean;
+}
+
+
+export interface FormData {
+  personal: {
+    fullName: string;
+    gender: string;
+    dob: string;
+    address: string;
+    phone: string;
+    email: string;
+    languages: { name: string }[];
+    profileImage?: string;
+  };
+  professional: {
+    department: string;
+    roleType: string;
+    experience: string;
+    unionMembership: string;
+    status: string;
+    blockFrom: string;
+    blockTo: string;
+  };
+  payment: {
+    rateType: string;
+    currency: string;
+    amount: string;
+    paymentMethod: string;
+    gstPan: string;
+    documents: File[];
+  };
+}
+
+export interface AddUserFormProps {
+  currentStep: number;
+  formData: FormData;
+  departments: { id: string | number; name: string; count: number }[];
+  onUpdatePersonal: (updates: Partial<FormData["personal"]>) => void;
+  onUpdateProfessional: (updates: Partial<FormData["professional"]>) => void;
+  onUpdatePayment: (updates: Partial<FormData["payment"]>) => void;
+  onAddLanguage: (name: string) => void;
+  onRemoveLanguage: (index: number) => void;
+  onUpdateLanguage: (index: number, name: string) => void;
+  onAddDocument: (file: File) => void;
+  onRemoveDocument: (index: number) => void;
+  onNext: () => void;
+  onPrev: () => void;
+  onSubmit: () => void;
+  isLoading: boolean;
+  errors: Record<string, string>;
+}

@@ -144,6 +144,11 @@ html, body {
 
 @theme color {
   --an-card-error-color: #d02b20;
+  --an-table-header-bg: #ffffff2e;
+  --an-import-bg: #ffffff4d;
+  --add-btn-bg: #4a90e2;
+  --an-dark-bg: #4f4f4f;
+  --input-bg: #2b2b2b;
 }
 @layer base {
   * {

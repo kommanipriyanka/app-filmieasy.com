@@ -45,7 +45,7 @@ const initialFormData: FormData = {
     phone: "",
     email: "",
     profileImage: "",
-    languages: [{ name: "" }],
+    languages: [],
   },
   professional: {
     department: "",
@@ -185,9 +185,9 @@ function AddUserContainer() {
     updateFormData({ payment: { ...formData.payment, ...updates } });
   };
 
-  const addLanguage = () => {
+  const addSpecificLanguage = (name: string) => {
     clearFieldErrors(['languages']);
-    updatePersonal({ languages: [...formData.personal.languages, { name: "" }] });
+    updatePersonal({ languages: [...formData.personal.languages, { name }] });
   };
 
   const removeLanguage = (index: number) => {
@@ -197,11 +197,7 @@ function AddUserContainer() {
   };
 
   const updateLanguage = (index: number, name: string) => {
-    clearFieldErrors(['languages']);
-    const languages = formData.personal.languages.map((lang, i) =>
-      i === index ? { ...lang, name } : lang
-    );
-    updatePersonal({ languages });
+    // No-op since languages are now predefined and not editable via input
   };
 
   const addDocument = (file: File) => {
@@ -237,7 +233,7 @@ function AddUserContainer() {
       onUpdatePersonal={updatePersonal}
       onUpdateProfessional={updateProfessional}
       onUpdatePayment={updatePayment}
-      onAddLanguage={addLanguage}
+      onAddLanguage={addSpecificLanguage}
       onRemoveLanguage={removeLanguage}
       onUpdateLanguage={updateLanguage}
       onAddDocument={addDocument}

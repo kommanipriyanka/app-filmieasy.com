@@ -26,7 +26,6 @@ function UserTableContainer() {
   const [selectedDate, setSelectedDate] = useState(initialDate);
   const [sorting, setSorting] = useState([]);
 
-  // Debounce search value
   useEffect(() => {
     const timer = setTimeout(() => {
       setSearchValue(searchInput);
@@ -34,20 +33,7 @@ function UserTableContainer() {
     return () => clearTimeout(timer);
   }, [searchInput]);
 
-  // Sync states from URL search params when location changes
-  useEffect(() => {
-    const sp = new URLSearchParams(location.search);
-    setPage(Number(sp.get("page") || 1));
-    setPageSize(Number(sp.get("pageSize") || 10));
-    const newSearch = sp.get("searchString") || "";
-    setSearchInput(newSearch);
-    setSearchValue(newSearch);
-    setSelectedDepartment(sp.get("department") || "");
-    setSelectedStatus(sp.get("status") || "");
-    setSelectedDate(sp.get("date") || "");
-  }, [location.search]);
 
-  // Handlers for filters to reset page
   const handleSetDepartment = useCallback((value: string) => {
     setSelectedDepartment(value);
     setPage(1);
@@ -108,13 +94,13 @@ function UserTableContainer() {
     id: user.id,
     fullName: user.full_name,
     email: user.email,
-    gender: "male",
-    department: user.department?.name || "",
+    gender: user.gender,
+    department: user.department?.name ,
     phone: user.phone,
     dob: user.DOB,
-    address: user.address || "",
-    charges: "$0/Day",
-    status: "available"
+    address: user.address ,
+    charges: user.charges ,
+    status: user.status,
   }));
   const paginationInfo = usersResponse?.pagination_info || {
     total_records: 0,
@@ -136,7 +122,6 @@ function UserTableContainer() {
     })),
   ];
 
-  // Update URL params when relevant states change
   useEffect(() => {
     const params: Record<string, any> = {
       page,
@@ -147,7 +132,7 @@ function UserTableContainer() {
     if (selectedStatus) params.status = selectedStatus;
     if (selectedDate) params.date = selectedDate;
     navigate({ to: "/team", search: params });
-  }, [page, pageSize, searchValue, selectedDepartment, selectedStatus, selectedDate, navigate]);
+  }, [page,pageSize, searchValue, selectedDepartment, selectedStatus, selectedDate, navigate]);
 
   return (
     <UsersTable

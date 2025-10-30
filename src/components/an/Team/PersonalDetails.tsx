@@ -25,9 +25,8 @@ interface PersonalFormData {
 interface PersonalDetailsProps {
   formData: PersonalFormData;
   onUpdate: (updates: Partial<PersonalFormData>) => void;
-  onAddLanguage: () => void;
+  onAddLanguage: (name: string) => void;
   onRemoveLanguage: (index: number) => void;
-  onUpdateLanguage: (index: number, name: string) => void;
   errors: Record<string, string>;
 }
 
@@ -36,32 +35,31 @@ function PersonalDetails({
   onUpdate,
   onAddLanguage,
   onRemoveLanguage,
-  onUpdateLanguage,
   errors,
 }: PersonalDetailsProps) {
 return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-7xl mx-auto">
-      <div className="space-y-6">
-        <div className=" border border-zinc-800/50 rounded-lg p-6">
-          <h3 className="text-sm font-medium mb-6 text-zinc-400 flex items-center gap-2">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-7xl mx-auto">
+      <div className="space-y-4">
+        <div className="border border-zinc-800/50 rounded-lg p-4">
+          <h3 className="text-sm font-medium mb-4 text-zinc-300 flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
             Basic Info
           </h3>
-          <div className="space-y-5">
+          <div className="space-y-3.5">
             <div>
-              <Label className="text-xs text-zinc-400 mb-2 block">
+              <Label className="text-xs text-zinc-300 mb-2 block">
                 Full Name
               </Label>
               <Input
                 value={formData.fullName}
                 onChange={(e) => onUpdate({ fullName: e.target.value })}
-                className="bg-black/40 border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-600"
+                className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300"
                 placeholder="Enter full name"
               />
               {errors.fullName && <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>}
             </div>
             <div>
-              <Label className="text-xs text-zinc-400 mb-3 block">
+              <Label className="text-xs text-zinc-300 mb-2 block">
                 Gender
               </Label>
               <RadioGroup value={formData.gender} onValueChange={(v) => onUpdate({ gender: v })} className="flex gap-4">
@@ -87,7 +85,7 @@ return (
               {errors.gender && <p className="text-red-500 text-xs mt-1">{errors.gender}</p>}
             </div>
             <div>
-              <Label className="text-xs text-zinc-400 mb-2 block">
+              <Label className="text-xs text-zinc-300 mb-2 block">
                 Date of Birth
               </Label>
               <div className="flex items-center gap-2">
@@ -102,7 +100,7 @@ return (
                     onUpdate({ dob: newDob });
                   }}
                   placeholder="DD"
-                  className="w-16 bg-black/40 border-zinc-800/50 text-white h-10 text-sm text-center placeholder:text-zinc-600"
+                  className="w-16 bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm text-center placeholder:text-zinc-300"
                 />
                 <Input
                   type="text"
@@ -115,7 +113,7 @@ return (
                     onUpdate({ dob: newDob });
                   }}
                   placeholder="MM"
-                  className="w-16 bg-black/40 border-zinc-800/50 text-white h-10 text-sm text-center placeholder:text-zinc-600"
+                  className="w-16 bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm text-center placeholder:text-zinc-300"
                 />
                 <Input
                   type="text"
@@ -128,22 +126,22 @@ return (
                     onUpdate({ dob: newDob });
                   }}
                   placeholder="YYYY"
-                  className="w-24 bg-black/40 border-zinc-800/50 text-white h-10 text-sm text-center placeholder:text-zinc-600"
+                  className="w-24 bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm text-center placeholder:text-zinc-300"
                 />
               </div>
               {errors.dob && <p className="text-red-500 text-xs mt-1">{errors.dob}</p>}
             </div>
             <div>
-              <Label className="text-xs text-zinc-400 mb-2 block">Address</Label>
+              <Label className="text-xs text-zinc-300 mb-2 block">Address</Label>
               <Input
                 value={formData.address}
                 onChange={(e) => onUpdate({ address: e.target.value })}
-                className="bg-black/40 border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-600"
+                className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300"
                 placeholder="Enter address"
               />
             </div>
             <div>
-              <Label className="text-xs text-zinc-400 mb-2 block">Upload Image</Label>
+              <Label className="text-xs text-zinc-300 mb-2 block">Upload Image</Label>
               <div className="relative">
                 <input
                   type="file"
@@ -158,7 +156,7 @@ return (
                       reader.readAsDataURL(file);
                     }
                   }}
-                  className="hidden"
+                  className="hidden bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300 "
                   id="image-upload"
                 />
                 <label
@@ -175,20 +173,20 @@ return (
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label className="text-xs text-zinc-400 mb-2 block">
+                <Label className="text-xs text-zinc-300 mb-2 block">
                   Email
                 </Label>
                 <Input
                   type="email"
                   value={formData.email}
                   onChange={(e) => onUpdate({ email: e.target.value })}
-                  className="bg-black/40 border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-600"
+                  className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300"
                   placeholder="Enter Email Id"
                 />
                 {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
               </div>
               <div>
-                <Label className="text-xs text-zinc-400 mb-2 block">
+                <Label className="text-xs text-zinc-300 mb-2 block">
                   Phone
                 </Label>
                 <Input
@@ -203,7 +201,7 @@ return (
                       onUpdate({ phone: value });
                     }
                   }}
-                  className="bg-black/40 border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-600"
+                  className="bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300"
                 />
                 {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
               </div>
@@ -211,80 +209,83 @@ return (
           </div>
         </div>
       </div>
-      <div className="space-y-6">
-        <div className="bg-zinc-900/40 backdrop-blur-sm border border-zinc-800/50 rounded-lg p-6">
-          <h3 className="text-sm font-medium mb-6 text-zinc-400 flex items-center gap-2">
+      <div className="space-y-4">
+        <div className="bg-zinc-900/40 backdrop-blur-sm border border-zinc-800/50 rounded-lg p-4">
+          <h3 className="text-sm font-medium mb-4 text-zinc-300 flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
             # languages Known
           </h3>
-          <div className="space-y-3 max-h-[500px] overflow-y-auto pr-2">
-            <div className="flex items-center gap-3">
-              <span className="text-zinc-500 text-sm">A</span>
-              <span className="flex-1 text-white text-sm">English</span>
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={onAddLanguage}
-                className="text-zinc-400 hover:text-white h-9 px-3 text-xs"
-              >
-                + Add
-              </Button>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="text-zinc-500 text-sm">A</span>
-              <span className="flex-1 text-white text-sm">Hindi</span>
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={onAddLanguage}
-                className="text-zinc-400 hover:text-white h-9 px-3 text-xs"
-              >
-                + Add
-              </Button>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="text-zinc-500 text-sm">A</span>
-              <span className="flex-1 text-white text-sm">Telugu</span>
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={onAddLanguage}
-                className="text-zinc-400 hover:text-white h-9 px-3 text-xs"
-              >
-                + Add
-              </Button>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="text-zinc-500 text-sm">A</span>
-              <span className="flex-1 text-white text-sm">Tamil</span>
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={onAddLanguage}
-                className="text-zinc-400 hover:text-white h-9 px-3 text-xs"
-              >
-                + Add
-              </Button>
-            </div>
+          <div className="space-y-2.5 max-h-[420px] overflow-y-auto pr-2">
+            {!formData.languages.some(l => l.name === 'English') && (
+              <div className="flex items-center gap-3">
+                <span className="text-zinc-500 text-sm">A</span>
+                <span className="flex-1 text-white text-sm">English</span>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => onAddLanguage('English')}
+                  className="text-zinc-400 hover:text-white h-8 px-3 text-xs"
+                >
+                  + Add
+                </Button>
+              </div>
+            )}
+            {!formData.languages.some(l => l.name === 'Hindi') && (
+              <div className="flex items-center gap-3">
+                <span className="text-zinc-500 text-sm">A</span>
+                <span className="flex-1 text-white text-sm">Hindi</span>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => onAddLanguage('Hindi')}
+                  className="text-zinc-400 hover:text-white h-8 px-3 text-xs"
+                >
+                  + Add
+                </Button>
+              </div>
+            )}
+            {!formData.languages.some(l => l.name === 'Telugu') && (
+              <div className="flex items-center gap-3">
+                <span className="text-zinc-500 text-sm">A</span>
+                <span className="flex-1 text-white text-sm">Telugu</span>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => onAddLanguage('Telugu')}
+                  className="text-zinc-400 hover:text-white h-8 px-3 text-xs"
+                >
+                  + Add
+                </Button>
+              </div>
+            )}
+            {!formData.languages.some(l => l.name === 'Tamil') && (
+              <div className="flex items-center gap-3">
+                <span className="text-zinc-500 text-sm">A</span>
+                <span className="flex-1 text-white text-sm">Tamil</span>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => onAddLanguage('Tamil')}
+                  className="text-zinc-400 hover:text-white h-8 px-3 text-xs"
+                >
+                  + Add
+                </Button>
+              </div>
+            )}
             {formData.languages.map((lang, index) => (
               <div key={index} className="flex items-center gap-3">
                 <span className="text-zinc-500 text-sm">A</span>
-                <Input
-                  value={lang.name}
-                  onChange={(e) => onUpdateLanguage(index, e.target.value)}
-                  placeholder="Language Name"
-                  className="flex-1 bg-black/40 border-zinc-800/50 text-white h-9 text-sm placeholder:text-zinc-600"
-                />
+                <span className="flex-1 text-white text-sm">{lang.name}</span>
                 <Button
                   type="button"
                   variant="ghost"
                   size="sm"
                   onClick={() => onRemoveLanguage(index)}
-                  className="text-red-400 hover:text-red-300 h-9 px-3 text-xs"
+                  className="text-red-400 hover:text-red-300 h-8 px-3 text-xs"
                 >
                   Remove
                 </Button>
