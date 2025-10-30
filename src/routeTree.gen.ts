@@ -20,6 +20,7 @@ import { Route as LayoutExpensesIndexRouteImport } from './routes/_layout/expens
 import { Route as LayoutDistrbutionIndexRouteImport } from './routes/_layout/distrbution/index'
 import { Route as LayoutDashboardIndexRouteImport } from './routes/_layout/dashboard/index'
 import { Route as LayoutTeamAddUserRouteImport } from './routes/_layout/team/add-user'
+import { Route as LayoutProjectsAddProjectRouteImport } from './routes/_layout/projects/add-project'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -75,10 +76,17 @@ const LayoutTeamAddUserRoute = LayoutTeamAddUserRouteImport.update({
   path: '/team/add-user',
   getParentRoute: () => LayoutRoute,
 } as any)
+const LayoutProjectsAddProjectRoute =
+  LayoutProjectsAddProjectRouteImport.update({
+    id: '/projects/add-project',
+    path: '/projects/add-project',
+    getParentRoute: () => LayoutRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/signup': typeof SignupRoute
+  '/projects/add-project': typeof LayoutProjectsAddProjectRoute
   '/team/add-user': typeof LayoutTeamAddUserRoute
   '/dashboard': typeof LayoutDashboardIndexRoute
   '/distrbution': typeof LayoutDistrbutionIndexRoute
@@ -91,6 +99,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/signup': typeof SignupRoute
+  '/projects/add-project': typeof LayoutProjectsAddProjectRoute
   '/team/add-user': typeof LayoutTeamAddUserRoute
   '/dashboard': typeof LayoutDashboardIndexRoute
   '/distrbution': typeof LayoutDistrbutionIndexRoute
@@ -105,6 +114,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_layout': typeof LayoutRouteWithChildren
   '/signup': typeof SignupRoute
+  '/_layout/projects/add-project': typeof LayoutProjectsAddProjectRoute
   '/_layout/team/add-user': typeof LayoutTeamAddUserRoute
   '/_layout/dashboard/': typeof LayoutDashboardIndexRoute
   '/_layout/distrbution/': typeof LayoutDistrbutionIndexRoute
@@ -119,6 +129,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/signup'
+    | '/projects/add-project'
     | '/team/add-user'
     | '/dashboard'
     | '/distrbution'
@@ -131,6 +142,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/signup'
+    | '/projects/add-project'
     | '/team/add-user'
     | '/dashboard'
     | '/distrbution'
@@ -144,6 +156,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_layout'
     | '/signup'
+    | '/_layout/projects/add-project'
     | '/_layout/team/add-user'
     | '/_layout/dashboard/'
     | '/_layout/distrbution/'
@@ -239,10 +252,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutTeamAddUserRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/projects/add-project': {
+      id: '/_layout/projects/add-project'
+      path: '/projects/add-project'
+      fullPath: '/projects/add-project'
+      preLoaderRoute: typeof LayoutProjectsAddProjectRouteImport
+      parentRoute: typeof LayoutRoute
+    }
   }
 }
 
 interface LayoutRouteChildren {
+  LayoutProjectsAddProjectRoute: typeof LayoutProjectsAddProjectRoute
   LayoutTeamAddUserRoute: typeof LayoutTeamAddUserRoute
   LayoutDashboardIndexRoute: typeof LayoutDashboardIndexRoute
   LayoutDistrbutionIndexRoute: typeof LayoutDistrbutionIndexRoute
@@ -254,6 +275,7 @@ interface LayoutRouteChildren {
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
+  LayoutProjectsAddProjectRoute: LayoutProjectsAddProjectRoute,
   LayoutTeamAddUserRoute: LayoutTeamAddUserRoute,
   LayoutDashboardIndexRoute: LayoutDashboardIndexRoute,
   LayoutDistrbutionIndexRoute: LayoutDistrbutionIndexRoute,

@@ -19,7 +19,7 @@ export default function LoginPage() {
       userLoginApi(details),
     onSuccess: (response: LoginResponse) => {
       const { access_token, refresh_token } = response.data;
-      Cookies.set("access_token", access_token);
+      Cookies.set("token", access_token);
       Cookies.set("refresh_token", refresh_token);
       navigate({ to: "/dashboard" });
     },
