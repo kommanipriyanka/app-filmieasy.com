@@ -11,9 +11,19 @@ export interface UsersTableProps {
     setSelectedDate: (selectedDate: string) => void;
     selectedDepartment: string;
     setSelectedDepartment: (selectedDepartment: string) => void;
+    selectedStatus: string;
+    setSelectedStatus: (status: string) => void;
     sorting: any;
     setSorting: (sorting: any) => void;
     isLoading: boolean;
+    departments: { id: string | number; name: string; count: number }[];
+    onCreateDepartment: (name: string) => void;
+    isCreatingDepartment: boolean;
+    departmentError?: string | null;
+    departmentSuccess: boolean;
+    onResetSuccess: () => void;
+    onClearError: () => void;
+    showSidebar: boolean;
 }
 
 export interface Department {

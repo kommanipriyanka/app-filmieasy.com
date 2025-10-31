@@ -1,6 +1,6 @@
 import UserProfileContent from "./UserProfileContent";
-import UserProfileSidebar from "./UserProfileSideBar";
 import screen1 from "@/assets/screen1.webp";
+import UserProfileSidebar from "./UserProfileSidebar";
 
 interface UserProfile {
   name?: string;

@@ -6,8 +6,10 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import EditIcon from "../Icons/EditIcon";
 import OptionsIcon from "../Icons/OptionsIcon";
 import ViewIcon from "../Icons/ViewIcon";
+import { useNavigate } from "@tanstack/react-router";
 
 export default function createProjectColumns(): ColumnDef<Project>[] {
+  const navigate = useNavigate();
   return [
     {
       accessorKey: "image",
@@ -121,7 +123,7 @@ export default function createProjectColumns(): ColumnDef<Project>[] {
           <Button className="p-1.5 hover:bg-zinc-800 rounded transition-colors">
             <EditIcon />
           </Button>
-          <Button className="p-1.5 hover:bg-zinc-800 rounded transition-colors">
+          <Button onClick={()=>{console.log(row.original.id, "jjjjjj"); navigate({to:`/projects/${row.original.id}/users`})}} className="p-1.5 hover:bg-zinc-800 rounded transition-colors">
            <ViewIcon  />
           </Button>
           <Button className="p-1.5 hover:bg-zinc-800 rounded transition-colors">

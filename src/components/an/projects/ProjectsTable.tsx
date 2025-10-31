@@ -75,7 +75,7 @@ function ProjectsTable({
                     value={selectedStatus || "all"}
                     onValueChange={handleStatusSelect}
                   >
-                    <SelectTrigger className="w-[180px] h-9 bg-zinc-900/50 border-2 border-zinc-700 text-xs">
+                    <SelectTrigger className="w-[160px] h-8 bg-zinc-900/50 border-2 border-zinc-700 text-xs">
                       <SelectValue placeholder="Select Status" />
                     </SelectTrigger>
                     <SelectContent>
@@ -92,7 +92,7 @@ function ProjectsTable({
                       <Button
                         variant="outline"
                         className={cn(
-                          "w-[180px] h-9 justify-start text-left font-normal bg-zinc-900/50 border-2 border-zinc-700 text-xs",
+                          "w-[160px] h-8 justify-start text-left font-normal bg-zinc-900/50 border-2 border-zinc-700 text-xs",
                           !selectedDate && "text-zinc-600"
                         )}
                       >
@@ -107,17 +107,17 @@ function ProjectsTable({
                                   e.stopPropagation();
                                   setSelectedDate("");
                                 }}
-                                className="h-4 w-4 p-0"
+                                className="h-3.5 w-3.5 p-0"
                               >
-                                <X className="h-3 w-3 text-zinc-600 hover:text-white" />
+                                <X className="h-2.5 w-2.5 text-zinc-600 hover:text-white" />
                               </Button>
-                              <CalendarIcon className="h-4 w-4 opacity-50" />
+                              <CalendarIcon className="h-3.5 w-3.5 opacity-50" />
                             </div>
                           </div>
                         ) : (
                           <>
                             <span>Pick a date</span>
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                            <CalendarIcon className="ml-auto h-3.5 w-3.5 opacity-50" />
                           </>
                         )}
                       </Button>
@@ -135,25 +135,25 @@ function ProjectsTable({
                   </Popover>
                 </div>
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-3.5 h-3.5 text-zinc-600" />
+                  <Search className="absolute left-2.5 top-1/2 transform -translate-y-1/2 w-3 h-3 text-zinc-600" />
                   <Input
                     type="text"
                     placeholder="Search Projects"
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
-                    className="h-9 pl-9 pr-3 bg-zinc-900/50 border-2 border-zinc-700 rounded-lg text-xs text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-zinc-700 focus:border-zinc-700 w-[180px]"
+                    className="h-8 pl-8 pr-2.5 bg-zinc-900/50 border-2 border-zinc-700 rounded-lg text-xs text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-zinc-700 focus:border-zinc-700 w-[160px]"
                   />
                 </div>
-                 <button className="h-9 flex items-center gap-2 px-3.5 bg-(--an-import-bg) border border-zinc-800/50 rounded-lg text-xs font-normal text-white hover:bg-zinc-800 transition-colors cursor-pointer">
-                  <Upload className="w-3.5 h-3.5" />
+                 <button className="h-8 flex items-center gap-1.5 px-3 bg-(--an-import-bg) border border-zinc-800/50 rounded-lg text-xs font-normal text-white hover:bg-zinc-800 transition-colors cursor-pointer">
+                  <Upload className="w-3 h-3" />
                   Import
                 </button>
-                <button className="h-9 flex items-center gap-2 px-3.5 bg-(--an-import-bg) border border-zinc-800/50 rounded-lg text-xs font-normal text-white hover:bg-zinc-800 transition-colors cursor-pointer">
-                  <Download className="w-3.5 h-3.5" />
+                <button className="h-8 flex items-center gap-1.5 px-3 bg-(--an-import-bg) border border-zinc-800/50 rounded-lg text-xs font-normal text-white hover:bg-zinc-800 transition-colors cursor-pointer">
+                  <Download className="w-3 h-3" />
                   Download
                 </button>
-                <button onClick={()=>{navigate({to:"/projects/add-project"})}} className="h-9 flex items-center gap-2 px-4 bg-(--add-btn-bg) cursor-pointer hover:bg-blue-700 rounded-lg text-xs font-medium text-white transition-colors">
-                  <Plus className="w-3.5 h-3.5" />
+                <button onClick={()=>{navigate({to:"/projects/add-project"})}} className="h-8 flex items-center gap-1.5 px-3 bg-(--add-btn-bg) cursor-pointer hover:bg-blue-700 rounded-lg text-xs font-medium text-white transition-colors">
+                  <Plus className="w-3 h-3" />
                   Add New Project
                 </button>
               </div>

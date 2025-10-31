@@ -24,71 +24,89 @@ function createUserColumns(): ColumnDef<User>[] {
   const navigate = useNavigate();
   const columns: ColumnDef<User>[] = [
     {
-      accessorKey: 'fullName',
-      header: 'Full Name',
+      accessorKey: "fullName",
+      header: "Full Name",
       cell: ({ row }) => (
         <div className="flex items-center gap-3">
-           {row.original?.image ? (
-              <img
-                src={row.original.image}
-                alt={row.original.name ?? row.original.fullName}
-                className="w-8 h-8 rounded object-cover mr-3"
-              />
-            ) : (
-              <div className="w-8 h-8 bg-gray-700 rounded mr-3 flex items-center justify-center">
-                <span className="text-xs font-medium">{row.original.fullName.charAt(0)}</span>
-              </div>
-            )}
+          {row.original?.image ? (
+            <img
+              src={row.original.image}
+              alt={row.original.name ?? row.original.fullName}
+              className="w-8 h-8 rounded object-cover mr-3"
+            />
+          ) : (
+            <div className="w-8 h-8 bg-gray-700 rounded mr-3 flex items-center justify-center">
+              <span className="text-xs font-medium">
+                {row.original.fullName.charAt(0)}
+              </span>
+            </div>
+          )}
           <div>
             <div className="flex items-center">
               <span className="font-medium">{row.original.fullName}</span>
             </div>
-            <div className="text-xs text-zinc-400">{row.original.email ?? '-'}</div>
+            <div className="text-xs text-zinc-400">
+              {row.original.email ?? "-"}
+            </div>
           </div>
         </div>
       ),
     },
     {
-      accessorKey: 'gender',
-      header: 'gender',
-      size: 30,
+      accessorKey: "gender",
+      header: "",
+      size: 3,
       cell: ({ row }) => {
-        const gender = row.getValue('gender');
+        const gender = row.getValue("gender");
         if (!gender) {
           return <span className="text-zinc-300">-</span>;
         }
         return (
-          <span className={gender === 'MALE' ? "text-blue-400" : "text-pink-400"}>
-            {gender === 'MALE' ? '♂' : '♀'}
+          <span
+            className={gender === "MALE" ? "text-blue-400" : "text-pink-400"}
+          >
+            {gender === "MALE" ? "♂" : "♀"}
           </span>
         );
       },
     },
     {
-      accessorKey: 'department',
-      header: 'Department',
-      cell: ({ row }) => <span className="text-zinc-300">{row.getValue('department') ?? '-'}</span>,
+      accessorKey: "department",
+      header: "Department",
+      cell: ({ row }) => (
+        <span className="text-zinc-300">
+          {row.getValue("department") ?? "-"}
+        </span>
+      ),
     },
     {
-      accessorKey: 'phone',
-      header: 'Phone Number',
-      cell: ({ row }) => <span className="text-zinc-300">{row.getValue('phone') ?? '-'}</span>,
+      accessorKey: "phone",
+      header: "Phone Number",
+      cell: ({ row }) => (
+        <span className="text-zinc-300">{row.getValue("phone") ?? "-"}</span>
+      ),
     },
     {
-      accessorKey: 'dob',
-      header: 'DOB',
-      cell: ({ row }) => <span className="text-zinc-300">{row.getValue('dob') ?? '-'}</span>,
+      accessorKey: "dob",
+      header: "DOB",
+      cell: ({ row }) => (
+        <span className="text-zinc-300">{row.getValue("dob") ?? "-"}</span>
+      ),
     },
     {
-      accessorKey: 'address',
-      header: 'Address',
+      accessorKey: "address",
+      header: "Address",
       enableSorting: false,
-      cell: ({ row }) => <span className="text-zinc-300">{row.getValue('address') ?? '-'}</span>,
+      cell: ({ row }) => (
+        <span className="text-zinc-300">{row.getValue("address") ?? "-"}</span>
+      ),
     },
     {
-      accessorKey: 'charges',
-      header: 'Charges',
-      cell: ({ row }) => <span className="text-zinc-300">{row.getValue('charges') ?? '-'}</span>,
+      accessorKey: "charges",
+      header: "Charges",
+      cell: ({ row }) => (
+        <span className="text-zinc-300">{row.getValue("charges") ?? "-"}</span>
+      ),
     },
     {
       accessorKey: "status",
@@ -123,20 +141,21 @@ function createUserColumns(): ColumnDef<User>[] {
       },
     },
     {
-      id: 'actions',
-      header: 'Actions',
+      id: "actions",
+      header: "Actions",
       enableSorting: false,
       cell: ({ row }) => (
         <div className="flex items-center gap-2">
           <Button className="p-1.5 rounded transition-colors cursor-pointer">
             <EditIcon />
           </Button>
-          <Button             className="p-1.5 rounded transition-colors cursor-pointer"
- onClick={()=>{
-            console.log(row.original.id, "jjjjjj");
-            navigate({to:`/team/${row.original.id}`})}} 
-            >
-           <ViewIcon />
+          <Button
+            className="p-1.5 rounded transition-colors cursor-pointer"
+            onClick={() => {
+              navigate({ to: `/team/${row.original.id}` });
+            }}
+          >
+            <ViewIcon />
           </Button>
           <Button className="p-1.5 rounded transition-colors cursor-pointer">
             <OptionsIcon />

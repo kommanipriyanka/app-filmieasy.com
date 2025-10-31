@@ -30,19 +30,7 @@ function ProjectsTableContainer() {
     return () => clearTimeout(timer);
   }, [searchInput]);
 
-  // Sync states from URL search params when location changes
-  useEffect(() => {
-    const sp = new URLSearchParams(location.search);
-    setPage(Number(sp.get("page") || 1));
-    setPageSize(Number(sp.get("pageSize") || 10));
-    const newSearch = sp.get("searchString") || "";
-    setSearchInput(newSearch);
-    setSearchValue(newSearch);
-    setSelectedStatus(sp.get("status") || "");
-    setSelectedDate(sp.get("date") || "");
-  }, [location.search]);
 
-  // Handlers for filters to reset page
   const handleSetStatus = useCallback((value: string) => {
     setSelectedStatus(value);
     setPage(1);
