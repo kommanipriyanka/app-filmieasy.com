@@ -11,6 +11,7 @@ import {
 import { Card } from "@/components/ui/card";
 import { Search } from "lucide-react";
 import { useState } from "react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface TeamFormData {
   members: { userId: string }[];
@@ -64,6 +65,7 @@ function CrewArtists({
             />
           </div>
           <div className="flex-1 overflow-y-auto space-y-3">
+            <ScrollArea className="h-[calc(100vh-45vh)]">
             {filteredUsers.map((user) => (
               <div key={user.id} className="flex items-center justify-between p-3 bg-black/40 border border-zinc-800/50 rounded">
                 <div className="flex items-center gap-3">
@@ -85,6 +87,7 @@ function CrewArtists({
                 </Button>
               </div>
             ))}
+            </ScrollArea>
           </div>
         </div>
       </div>

@@ -5,9 +5,9 @@ import PersonalDetails from "./PersonalDetails";
 import PaymentDetails from "./PaymentDetails";
 import ProfessionalDetails from "./ProfessionalDetails";
 import { useNavigate } from "@tanstack/react-router";
-import screen1 from "@/assets/screen1.webp";
-import screen2 from "@/assets/screen1.webp";
-import screen3 from "@/assets/screen1.webp";
+import screen1 from "@/assets/s-1.webp";
+import screen2 from "@/assets/s-2.webp";
+import screen3 from "@/assets/s-3.webp";
 import { AddUserFormProps } from "@/lib/interfaces/Team";
 
 function AddUserForm({
@@ -38,7 +38,7 @@ function AddUserForm({
         <img
           src={currentBg}
           alt="Background"
-          className="absolute inset-0 w-full h-full object-cover rounded-lg"
+          className="absolute inset-0 w-full h-full object-cover rounded-lg brightness-70"
         />
         
         <div className="relative z-10 h-full flex flex-col">

@@ -1,61 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "@tanstack/react-router";
-import screen1 from "@/assets/screen1.webp";
-import screen2 from "@/assets/screen1.webp";
-import screen3 from "@/assets/screen1.webp";
+import screen1 from "@/assets/s-1.webp";
+import screen2 from "@/assets/s-2.webp";
+import screen3 from "@/assets/s-3.webp";
 import ProjectDetails from "./ProjectDetails";
 import CrewArtists from "./TeamFormData";
 import ScriptSceneBuilder from "./ScriptSceneBuilder";
-
-interface FormData {
-  project: {
-    name: string;
-    status: string;
-    genre: string;
-    language: string;
-    description: string;
-    startDate: string;
-    endDate: string;
-    estimatedBudget: string;
-  };
-  team: {
-    members: { userId: string }[];
-  };
-  script: {
-    scenes: {
-      name: string;
-      description: string;
-      members: string[];
-      location: string;
-      date: string;
-      timeFrom: string;
-      timeTo: string;
-      locationType: "indoor" | "outdoor";
-    }[];
-    screenplayTitle: string;
-    screenplaySubtitle: string;
-  };
-}
-
-interface AddProjectFormProps {
-  currentStep: number;
-  formData: FormData;
-  availableUsers: { id: string; name: string; department: string; image?: string }[];
-  onUpdateProject: (updates: Partial<FormData["project"]>) => void;
-  onAddTeamMember: (userId: string) => void;
-  onRemoveTeamMember: (index: number) => void;
-  onUpdateTeamMember: (index: number, updates: Partial<{ department: string; role: string }>) => void;
-  onAddScene: () => void;
-  onRemoveScene: (index: number) => void;
-  onUpdateScene: (index: number, updates: Partial<FormData["script"]["scenes"][0]>) => void;
-  onUpdateScreenplay: (updates: Partial<FormData["script"] & { screenplayTitle?: string; screenplaySubtitle?: string }>) => void;
-  onNext: () => void;
-  onPrev: () => void;
-  onSubmit: () => void;
-  isLoading: boolean;
-  errors: Record<string, string>;
-}
+import { AddProjectFormProps } from "@/lib/interfaces/Project";
 
 function AddProjectForm({
   currentStep,

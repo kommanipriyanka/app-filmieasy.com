@@ -1,5 +1,6 @@
 import { DataTableProps } from '@/lib/interfaces/core';
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table'
+import { ScrollArea } from '../ui/scroll-area';
 
 function DataTable({ data, columns, sorting, setSorting, isLoading }: DataTableProps) {
   const table = useReactTable({
@@ -21,20 +22,16 @@ function DataTable({ data, columns, sorting, setSorting, isLoading }: DataTableP
     );
   }
 
-  if (data.length === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center h-96">
-        <p className="text-zinc-500">No users found</p>
-      </div>
-    );
-  }
+ 
 
   return (
-    <div className="overflow-x-auto ">
-      <table className="w-full text-[11px] border border-zinc-800/30 rounded-lg">
+    <div className="overflow-x-auto">
+      
+      <table className="w-full text-[11px] overflow-scroll border border-zinc-800/30 rounded-lg">
+          <ScrollArea className="h-[calc(100vh-24vh)]"> 
         <thead >
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id} className="border-b border-zinc-800 rounded-2xl bg-(--an-table-header-bg)">
+            <tr key={headerGroup.id} className="border-b border-zinc-800 sticky top-0  rounded-2xl bg-(--an-table-header-bg)">
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
@@ -77,6 +74,7 @@ function DataTable({ data, columns, sorting, setSorting, isLoading }: DataTableP
             </tr>
           ))}
         </tbody>
+      </ScrollArea>
       </table>
     </div>
   );
