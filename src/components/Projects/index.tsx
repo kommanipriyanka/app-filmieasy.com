@@ -5,12 +5,11 @@ import ProjectsTable from "../an/projects/ProjectsTable";
 import { getAllProjectsAPI } from "@/http/services/projects";
 
 function ProjectsTableContainer() {
-  const queryClient = useQueryClient();
   const location = useLocation();
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
   const initialPage = Number(searchParams.get("page")) || 1;
-  const initialPageSize = Number(searchParams.get("pageSize")) || 10;
+  const initialPageSize = Number(searchParams.get("pageSize")) || 20;
   const initialSearch = searchParams.get("searchString") || "";
   const initialStatus = searchParams.get("status") || "";
   const initialDate = searchParams.get("date") || "";

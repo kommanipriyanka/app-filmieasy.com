@@ -127,7 +127,8 @@ function AddUserContainer() {
       navigate({ to: "/team" });
     },
     onError: (error: any) => {
-      console.log(error?.data, "error adfjdsf");
+      setCurrentStep(1);
+      toast.error("Failed to create user");
       if (error?.data?.status === 422) {
         const errData = error.data.errData;
         const transformedErrors: Record<string, string> = {};

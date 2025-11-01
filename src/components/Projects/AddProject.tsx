@@ -1,3 +1,4 @@
+// AddProject.tsx
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
@@ -6,6 +7,7 @@ import AddProjectForm from "../an/projects/AddProjectForm";
 import { getAllUsersAPI } from "@/http/services/team";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
+import { set } from "date-fns";
 
 interface FormData {
   project: {
@@ -17,6 +19,7 @@ interface FormData {
     startDate: string;
     endDate: string;
     estimatedBudget: string;
+    profileImage?: string;
   };
   team: {
     members: { userId: string }[];
@@ -47,6 +50,7 @@ const initialFormData: FormData = {
     startDate: "",
     endDate: "",
     estimatedBudget: "",
+    profileImage: "",
   },
   team: {
     members: [],
@@ -147,7 +151,8 @@ function AddProject() {
       navigate({ to: "/projects" });
     },
     onError: (error: any) => {
-      console.log(error?.data, "error adfjdsf");
+      setCurrentStep(1);
+      toast.error("Failed to create project");
       if (error?.data?.status === 422 ) {
         const errData = error.data.errData;
         const transformedErrors: Record<string, string> = {};

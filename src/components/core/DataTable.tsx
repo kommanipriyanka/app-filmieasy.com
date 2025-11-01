@@ -28,52 +28,16 @@ function DataTable({ data, columns, sorting, setSorting, isLoading, maxHeight }:
 
   return (
     <div className="h-full p-2 border border-zinc-800/30 rounded-lg overflow-hidden flex flex-col">
-      <table className="w-full text-[11px] flex-shrink-0">
-        <thead className="sticky top-0 z-10 bg-[#0a0a0a] border-b border-zinc-800">
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th
-                  key={header.id}
-                  className="px-2 py-2 text-left text-zinc-300 font-semibold uppercase tracking-wider whitespace-nowrap"
-                >
-                  {header.isPlaceholder ? null : (
-                    <div
-                      className={`flex items-center gap-2 ${
-                        header.column.getCanSort() ? 'cursor-pointer select-none' : ''
-                      }`}
-                      onClick={header.column.getToggleSortingHandler()}
-                    >
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                      {header.column.getCanSort() && (
-                        <span className="text-xs">
-                          {{
-                            asc: '▲',
-                            desc: '▼',
-                          }[header.column.getIsSorted() as string] ?? null}
-                        </span>
-                      )}
-                    </div>
-                  )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-      </table>
-      
       <ScrollArea 
-        className="overflow-auto" 
+        className="flex-1" 
         style={{ 
-          height: maxHeight || '100%', 
-          maxHeight: maxHeight || '100%' 
+          height: maxHeight || undefined, 
+          maxHeight: maxHeight || undefined 
         }}
       >
-        <table className="w-full text-[11px]">
-          <thead className="invisible">
+        <table className="w-full text-[11px] relative">
+<thead className="sticky top-0 z-10 bg-[#FFFFFF2E] backdrop-blur-2xl border-b border-zinc-800">
+
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
@@ -82,10 +46,25 @@ function DataTable({ data, columns, sorting, setSorting, isLoading, maxHeight }:
                     className="px-2 py-2 text-left text-zinc-300 font-semibold uppercase tracking-wider whitespace-nowrap"
                   >
                     {header.isPlaceholder ? null : (
-                      flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )
+                      <div
+                        className={`flex items-center gap-2 ${
+                          header.column.getCanSort() ? 'cursor-pointer select-none' : ''
+                        }`}
+                        onClick={header.column.getToggleSortingHandler()}
+                      >
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
+                        {header.column.getCanSort() && (
+                          <span className="text-xs">
+                            {{
+                              asc: '▲',
+                              desc: '▼',
+                            }[header.column.getIsSorted() as string] ?? null}
+                          </span>
+                        )}
+                      </div>
                     )}
                   </th>
                 ))}

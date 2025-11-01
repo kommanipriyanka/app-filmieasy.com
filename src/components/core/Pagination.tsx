@@ -2,13 +2,9 @@ import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "../ui/button";
 import React from "react";
 import { PaginationProps } from "@/lib/interfaces/core";
-import { Select } from "../ui/select";
-import {
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@radix-ui/react-select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+
+
 
 function Pagination({
   paginationInfo,
@@ -56,29 +52,33 @@ function Pagination({
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-3">
-        <div className="relative">
-          <Select
-            value={pageSize.toString()}
-            onValueChange={(value) => {
-              const newPageSize = Number(value);
-              setPageSize(newPageSize);
-              setPage(1);
-            }}
-          >
-            <SelectTrigger className="ml-2 h-8 border border-gray-300 rounded cursor-pointer text-sm">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {[20, 50, 100, 150, 200].map((size) => (
-                <SelectItem key={size} value={size.toString()}>
-                  {size}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+      <Select
+  value={pageSize.toString()}
+  onValueChange={(value) => {
+    const newPageSize = Number(value);
+    setPageSize(newPageSize);
+    setPage(1);
+  }}
+>
+  <SelectTrigger className="ml-2 w-20 h-8 border border-gray-300 rounded cursor-pointer text-sm flex items-center justify-between px-3 bg-zinc-900 text-white">
+    <SelectValue />
+   
+  </SelectTrigger>
 
-          <ChevronDown className="absolute right-2 top-1/2 transform -translate-y-1/2 w-3 h-3 text-zinc-400 pointer-events-none" />
-        </div>
+  <SelectContent className="z-50 w-20 bg-zinc-900 border border-zinc-700 text-white">
+    {[20, 50, 100, 150, 200].map((size) => (
+      <SelectItem
+        key={size}
+        value={size.toString()}
+        className="text-sm hover:bg-zinc-800 cursor-pointer focus:bg-zinc-800 focus:text-white"
+      >
+        {size}
+      </SelectItem>
+    ))}
+  </SelectContent>
+</Select>
+
+
         <span className="text-sm text-zinc-400">Total: {total_records}</span>
       </div>
 
@@ -122,4 +122,4 @@ function Pagination({
   );
 }
 
-export default Pagination
+export default Pagination;

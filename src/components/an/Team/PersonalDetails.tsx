@@ -141,36 +141,38 @@ return (
               />
             </div>
             <div>
-              <Label className="text-xs text-zinc-300 mb-2 block">Upload Image</Label>
-              <div className="relative">
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      const reader = new FileReader();
-                      reader.onloadend = () => {
-                        onUpdate({ profileImage: reader.result as string });
-                      };
-                      reader.readAsDataURL(file);
-                    }
-                  }}
-                  className="hidden bg-(--input-bg) border-zinc-800/50 text-white h-10 text-sm placeholder:text-zinc-300 "
-                  id="image-upload"
-                />
-                <label
-                  htmlFor="image-upload"
-                  className="w-20 h-20 bg-zinc-700/30 border border-zinc-800/50 rounded flex items-center justify-center cursor-pointer hover:bg-zinc-700/50 transition-colors"
-                >
-                  {formData.profileImage ? (
-                    <img src={formData.profileImage} alt="Profile" className="w-full h-full object-cover rounded" />
-                  ) : (
-                    <span className="text-zinc-600 text-xs">+</span>
-                  )}
-                </label>
+                <Label className="text-xs text-zinc-300 mb-2 block">
+                  Upload User Image
+                </Label>
+                <div className="relative">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                          onUpdate({ profileImage: reader.result as string });
+                        };
+                        reader.readAsDataURL(file);
+                      }
+                    }}
+                    className="hidden bg-(--input-bg) border-zinc-800/50 text-white text-sm placeholder:text-zinc-300 "
+                    id="image-upload"
+                  />
+                  <label
+                    htmlFor="image-upload"
+                    className="w-22 h-22 bg-zinc-700/30 rounded-lg border-zinc-800/50 flex items-center justify-center cursor-pointer hover:bg-zinc-700/50 transition-colors"
+                  >
+                    {formData.profileImage ? (
+                      <img src={formData.profileImage} alt="Project" className="w-full h-full object-cover rounded-lg" />
+                    ) : (
+                      <span className="text-zinc-400 text-base text-center justify-center font-medium">+ Upload Image</span>
+                    )}
+                  </label>
+                </div>
               </div>
-            </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label className="text-xs text-zinc-300 mb-2 block">

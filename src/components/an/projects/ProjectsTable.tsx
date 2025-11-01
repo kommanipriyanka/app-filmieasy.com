@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import DataTable from "@/components/core/DataTable";
 import Pagination from "@/components/core/Pagination";
 import ProjectsBg from "@/assets/ProjectsBg.webp"; // Assuming a background image for projects
@@ -30,6 +31,7 @@ import {
 import { useNavigate } from "@tanstack/react-router";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+
 function ProjectsTable({
   data,
   paginationInfo,
@@ -50,22 +52,68 @@ function ProjectsTable({
   selectedStatus: string;
   setSelectedStatus: (status: string) => void;
 }) {
-  const columns = createProjectColumns();
+  const [tableBodyHeight, setTableBodyHeight] = useState('100%');
   const navigate = useNavigate();
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const paginationRef = useRef<HTMLDivElement>(null);
+
+  const columns = createProjectColumns();
+
   const handleStatusSelect = (status: string) => {
     setSelectedStatus(status === "all" ? "" : status);
   };
+
+  useEffect(() => {
+    const calculateHeight = () => {
+      if (!containerRef.current) return;
+
+      requestAnimationFrame(() => {
+        const containerRect = containerRef.current!.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        let aboveHeight = 0;
+        let bottomHeight = 0;
+
+        if (headerRef.current) {
+          aboveHeight += headerRef.current.getBoundingClientRect().height;
+        }
+
+        if (paginationRef.current) {
+          bottomHeight += paginationRef.current.getBoundingClientRect().height;
+        }
+
+        const containerStyle = window.getComputedStyle(containerRef.current as HTMLDivElement);
+        const containerPadding = parseFloat(containerStyle.paddingTop) + parseFloat(containerStyle.paddingBottom);
+        const containerMargin = parseFloat(containerStyle.marginTop) + parseFloat(containerStyle.marginBottom);
+
+        const offsets = containerPadding + containerMargin + 32;
+
+        const availableHeight = viewportHeight - containerRect.top - aboveHeight - bottomHeight - offsets;
+        if (location.pathname === '/projects') {
+          setTableBodyHeight(Math.max(availableHeight - 80, 200) + 'px');
+        } else {
+          setTableBodyHeight(Math.max(availableHeight, 200) + 'px');
+        }
+      });
+    };
+
+    calculateHeight();
+    window.addEventListener('resize', calculateHeight);
+    return () => window.removeEventListener('resize', calculateHeight);
+  }, [data?.length]);
+
   return (
     <>
-      <div className="min-h-screen relative text-white p-0 overflow-hidden">
+      <div className="h-full relative text-white p-0 overflow-hidden" ref={containerRef}>
         <img
           src={ProjectsBg}
           alt="Background"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="relative z-10 p-4 min-h-screen flex flex-col">
+        <div className="relative z-10 h-full flex p-4 flex flex-col">
           <div className="flex-1 flex flex-col bg-black">
-            <div className="h-[52px] border-b border-zinc-800/30 px-6 flex items-center justify-between bg-[#0a0a0a]">
+            <div ref={headerRef} className="h-[52px] border-b border-zinc-800/30 px-6 flex items-center justify-between bg-[#0a0a0a] flex-shrink-0">
               <div className="flex items-center">
                 <span className="text-sm font-normal text-white">Projects</span>
               </div>
@@ -158,16 +206,17 @@ function ProjectsTable({
                 </button>
               </div>
             </div>
-            <div className="flex-1 overflow-auto p-2">
+            <div className="flex-1 bg-[#0a0a0a] overflow-hidden p-2">
               <DataTable
                 data={data}
                 columns={columns}
                 sorting={sorting}
                 setSorting={setSorting}
                 isLoading={isLoading}
+                maxHeight={tableBodyHeight}
               />
             </div>
-            <div className="h-[60px] px-6 border-t border-zinc-800/30 flex items-center bg-[#0a0a0a]">
+            <div ref={paginationRef} className="h-[60px] px-6 border-t border-zinc-800/30 flex items-center bg-[#0a0a0a] flex-shrink-0">
               <Pagination
                 paginationInfo={paginationInfo}
                 pageSize={pageSize}
@@ -181,4 +230,5 @@ function ProjectsTable({
     </>
   );
 }
+
 export default ProjectsTable;

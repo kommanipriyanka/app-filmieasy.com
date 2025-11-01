@@ -64,20 +64,21 @@ function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
 
   return (
     <div
-      className="h-screen bg-black text-white"
+      className="h-screen bg-black text-white "
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
+        
       }}
     >
       <div className="h-full flex flex-col overflow-hidden">
         <Card className="p-0 m-1 bg-transparent border-0 flex-shrink-0">
-          <CardHeader className="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6 p-0 pb-3 lg:pb-4">
-            <div className="flex items-center gap-4">
+          <CardHeader className="flex flex-col lg:flex-row items-start lg:items-center lg:justify-between gap-4 lg:gap-6 p-0 pb-3 lg:pb-4">
+            <div className="flex items-center gap-4 flex-1 lg:flex-none">
               <div className="relative">
-                <Avatar className="w-16 h-16">
+                <Avatar className="w-16 h-16 rounded-none">
                   <AvatarImage
                     src="https://example.com/urban-trial-poster.jpg"
                     alt="Project Avatar"
@@ -111,7 +112,6 @@ function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
                   </Tooltip>
                 </TooltipProvider>
               </div>
-            </div>
             <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6 text-xs flex-1 lg:flex-none lg:flex-shrink-0 w-full lg:w-auto">
               <div className="flex items-center gap-6 lg:gap-8 text-xs flex-wrap lg:flex-nowrap">
                 <div className="text-center lg:text-left min-w-[80px] lg:min-w-[100px]">
@@ -124,19 +124,22 @@ function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
                 </div>
                 <div className="text-center lg:text-left min-w-[120px] lg:min-w-[140px]">
                   <span className="text-gray-500 block mb-0.5">Timeline</span>
-                  <div className="text-gray-300 whitespace-nowrap border border-zinc-600/50 bg-zinc-900/50">
+                  <div className="text-white whitespace-nowrap border border-zinc-600/50 bg-[#FFFFFF2E] rounded-md px-2 py-1">
                     {timeline}
                   </div>
                 </div>
                 <div className="text-center lg:text-left min-w-[80px] lg:min-w-[100px]">
                   <span className="text-gray-500 block mb-0.5">Budget</span>
-                  <div className="text-gray-300">{budget}</div>
+                  <div className="text-white border border-zinc-600/50 bg-[#FFFFFF2E] rounded-md px-2 py-1">
+                    {budget}
+                  </div>
                 </div>
               </div>
             </div>
+            </div>
             <div className="flex flex-col items-end gap-1 flex-shrink-0 w-full lg:w-auto">
               
-              <div className="flex  items-center justify-between gap-4 w-full lg:w-auto">
+              <div className="flex  items-center justify-between mr-4 gap-4 w-full lg:w-auto">
                 <div className="flex flex-col">
                 <div className="flex gap-1 text-xs text-gray-400 mb-1 w-full lg:w-auto">
                 <span>Today, 12 September</span>
@@ -171,7 +174,7 @@ function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
             onValueChange={setActiveTab}
             className="w-full"
           >
-            <TabsList className="bg-black border-0 h-12 lg:h-14 px-4 lg:px-6 inline-flex min-w-full w-max gap-6">
+            <TabsList className="bg-black border-0 h-12 lg:h-14 px-4 lg:px-6 inline-flex min-w-full w-max gap-6 shadow-sm">
               <TabsTrigger
                 value="crew"
                 className="relative data-[state=active]:bg-transparent data-[state=active]:text-blue-500 data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-blue-500 rounded-none px-0 text-zinc-400 text-sm whitespace-nowrap border-0 hover:text-zinc-300 transition-colors"
@@ -217,7 +220,7 @@ function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
             </TabsList>
           </Tabs>
         </div>
-        <div className="flex-1 bg-black/80 backdrop-blur-sm rounded-lg border border-gray-800/50 overflow-hidden flex flex-col">
+        <div className="flex-1 bg-black shadow-sm border-t border-gray-800/50 overflow-hidden flex flex-col">
           {activeTab === "crew" && (
             <UserTableContainer users={projectUsersData} isProjectView={true} />
           )}

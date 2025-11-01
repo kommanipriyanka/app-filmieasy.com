@@ -181,70 +181,74 @@ function UsersTable({
             showSidebar ? "p-4" : "p-0 m-0"
           }`}
         >
-          {showSidebar && !isProjectView && (
-            <div ref={sidebarRef} className="w-64 border-r border-zinc-800/30 bg-black/20 backdrop-blur-sm flex flex-col">
-              <div className="h-[52px] px-4 border-b border-zinc-800/30 flex items-center justify-between">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-5 h-5 rounded bg-zinc-900 flex items-center justify-center">
-                    <svg
-                      className="w-3 h-3 text-zinc-500"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v6a1 1 0 00-1-1h-2z" />
-                    </svg>
+         {showSidebar && !isProjectView && (
+  <div
+    ref={sidebarRef}
+    className="w-64 border-r border-zinc-800/30 bg-black/20 backdrop-blur-sm flex flex-col"
+  >
+    <div className="h-[52px] px-4 border-b border-zinc-800/30 flex items-center justify-between">
+      <div className="flex items-center gap-2.5">
+        <div className="w-5 h-5 rounded bg-zinc-900 flex items-center justify-center">
+          <svg
+            className="w-3 h-3 text-zinc-500"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v6a1 1 0 00-1-1h-2z" />
+          </svg>
+        </div>
+        <span className="text-sm font-normal text-white">Departments</span>
+      </div>
+      <ChevronDown className="w-4 h-4 text-zinc-600" />
+    </div>
+
+    <div className="flex-1 flex flex-col">
+      <ScrollArea className="flex-1 max-h-[420px]">
+        <div className="py-1.5 px-3">
+          <ul className="space-y-0.5">
+            {departments.map((dept) => (
+              <li key={dept.id}>
+                <button
+                  onClick={() =>
+                    handleDepartmentSelect(dept.id.toString())
+                  }
+                  className={`w-full text-left h-[36px] px-2.5 rounded-lg text-[13px] flex justify-between items-center transition-all ${
+                    isDepartmentSelected(dept.id.toString())
+                      ? "bg-zinc-900 text-zinc-300 hover:bg-zinc-600"
+                      : "text-white hover:bg-zinc-900/50 hover:text-zinc-400"
+                  }`}
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-7 h-7 rounded-lg bg-zinc-900 flex items-center justify-center overflow-hidden border border-zinc-800/50">
+                      <span className="text-xs font-medium text-zinc-600 uppercase">
+                        {dept.name === "All" ? "A" : dept.name.charAt(0)}
+                      </span>
+                    </div>
+                    <span className="font-normal">{dept.name}</span>
                   </div>
-                  <span className="text-sm font-normal text-white">
-                    Departments
+                  <span className="text-xs text-zinc-600 font-normal">
+                    {dept.count}
                   </span>
-                </div>
-                <ChevronDown className="w-4 h-4 text-zinc-600" />
-              </div>
-              <div className="flex-1 flex flex-col">
-                <ScrollArea className="flex-1 max-h-[420px]">
-                  <div className="py-1.5 px-3">
-                    <ul className="space-y-0.5">
-                      {departments.map((dept) => (
-                        <li key={dept.id}>
-                          <button
-                            onClick={() => handleDepartmentSelect(dept.id.toString())}
-                            className={`w-full text-left h-[36px] px-2.5 rounded-lg text-[13px] flex justify-between items-center transition-all ${
-                              isDepartmentSelected(dept.id.toString())
-                                ? "bg-zinc-600 text-zinc-300"
-                                : "text-white hover:bg-zinc-900/50 hover:text-zinc-400"
-                            }`}
-                          >
-                            <div className="flex items-center gap-3">
-                              <div className="w-7 h-7 rounded-lg bg-zinc-900 flex items-center justify-center overflow-hidden border border-zinc-800/50">
-                                <span className="text-xs font-medium text-zinc-600 uppercase">
-                                  {dept.name === "All"
-                                    ? "A"
-                                    : dept.name.charAt(0)}
-                                </span>
-                              </div>
-                              <span className="font-normal">{dept.name}</span>
-                            </div>
-                            <span className="text-xs text-zinc-600 font-normal">
-                              {dept.count}
-                            </span>
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </ScrollArea>
-                <div className="p-3 border-t border-zinc-800/30">
-                  <button
-                    onClick={() => setIsAddDepartmentOpen(true)}
-                    className="w-full h-10 flex items-center justify-center gap-2 px-3 bg-zinc-900 hover:bg-zinc-600 border border-zinc-800/50 rounded-lg text-[13px] font-normal text-white transition-colors cursor-pointer"
-                  >
-                    <Plus className="w-4 h-4" />
-                    Add Department
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </ScrollArea>
+
+      <div className="p-3 border-t border-zinc-800/30">
+        <button
+          onClick={() => setIsAddDepartmentOpen(true)}
+          className="w-full h-10 flex items-center justify-center gap-2 px-3 bg-zinc-600 hover:bg-zinc-700 border border-zinc-800/50 rounded-lg text-[13px] font-normal text-zinc-300 transition-colors cursor-pointer"
+        >
+          <Plus className="w-4 h-4" />
+          Add Department
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
           <div className={`flex-1 flex flex-col ${showSidebar ? 'ml-4' : ''}`}>
             {!isProjectView && (
               <div className="bg-black rounded-t-xl overflow-hidden flex-1 flex flex-col h-full">

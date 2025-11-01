@@ -17,7 +17,7 @@ function UserTableContainer({ users: projectUsers, isProjectView = false }: User
   
   const searchParams = new URLSearchParams(location.search);
   const initialPage = Number(searchParams.get("page")) || 1;
-  const initialPageSize = Number(searchParams.get("pageSize")) || 10;
+  const initialPageSize = Number(searchParams.get("pageSize")) || 20;
   const initialSearch = searchParams.get("searchString") || "";
   const initialDepartment = searchParams.get("department") || "";
   const initialStatus = searchParams.get("status") || "";
