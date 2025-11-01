@@ -141,13 +141,14 @@ function AddProject() {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       toast.success("Project created successfully");
       setCurrentStep(1);
+      toast.success("Project created successfully");
       setFormData(initialFormData);
       setErrors({});
       navigate({ to: "/projects" });
     },
     onError: (error: any) => {
       console.log(error?.data, "error adfjdsf");
-      if (error?.data?.status === 422) {
+      if (error?.data?.status === 422 ) {
         const errData = error.data.errData;
         const transformedErrors: Record<string, string> = {};
         Object.entries(errData).forEach(([key, message]) => {

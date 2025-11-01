@@ -19,11 +19,9 @@ import {
   Droplets,
 } from "lucide-react";
 import UserTableContainer from "../../Team";
-
 import backgroundImage from "@/assets/TeamBg.webp";
 import Cloud from "@/components/Icons/Projects/Cloud";
 import { Props } from "@/lib/interfaces/Project";
-
 
 function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
   const [activeTab, setActiveTab] = useState("crew");
@@ -34,7 +32,6 @@ function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
   const projectLanguages = projectData?.languages
     ? projectData.languages.join(", ")
     : "N/A";
-
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString("en-US", {
@@ -43,7 +40,6 @@ function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
       year: "numeric",
     });
   };
-
   const startDate = projectData?.start_date
     ? formatDate(projectData.start_date)
     : "N/A";
@@ -51,16 +47,13 @@ function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
     ? formatDate(projectData.end_date)
     : "N/A";
   const timeline = `${startDate} - ${endDate}`;
-
   const budget = projectData?.estimated_budget
     ? `${projectData.estimated_budget.toLocaleString()} / TBD`
     : "N/A";
-
   const statusBadge =
     projectData?.status === "TODO"
       ? "Planning"
       : projectData?.status || "Unknown";
-
   const avatarFallback = projectName.charAt(0).toUpperCase();
 
   const EmptyState = ({ message }: { message: string }) => (
@@ -71,7 +64,7 @@ function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
 
   return (
     <div
-      className="min-h-screen bg-black text-white"
+      className="h-screen bg-black text-white"
       style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",
@@ -79,8 +72,8 @@ function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="">
-        <Card className="p-0 m-1 bg-transparent border-0">
+      <div className="h-full flex flex-col overflow-hidden">
+        <Card className="p-0 m-1 bg-transparent border-0 flex-shrink-0">
           <CardHeader className="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6 p-0 pb-3 lg:pb-4">
             <div className="flex items-center gap-4">
               <div className="relative">
@@ -95,7 +88,6 @@ function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
                 </Avatar>
                 <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-black"></div>
               </div>
-
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-3 mb-1">
                   <CardTitle className=" text-white">{projectName}</CardTitle>
@@ -120,7 +112,6 @@ function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
                 </TooltipProvider>
               </div>
             </div>
-
             <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6 text-xs flex-1 lg:flex-none lg:flex-shrink-0 w-full lg:w-auto">
               <div className="flex items-center gap-6 lg:gap-8 text-xs flex-wrap lg:flex-nowrap">
                 <div className="text-center lg:text-left min-w-[80px] lg:min-w-[100px]">
@@ -133,7 +124,7 @@ function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
                 </div>
                 <div className="text-center lg:text-left min-w-[120px] lg:min-w-[140px]">
                   <span className="text-gray-500 block mb-0.5">Timeline</span>
-                  <div className="text-gray-300 whitespace-nowrap">
+                  <div className="text-gray-300 whitespace-nowrap border border-zinc-600/50 bg-zinc-900/50">
                     {timeline}
                   </div>
                 </div>
@@ -143,12 +134,13 @@ function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
                 </div>
               </div>
             </div>
-
             <div className="flex flex-col items-end gap-1 flex-shrink-0 w-full lg:w-auto">
-              <div className="flex gap-1 text-xs text-gray-400 mb-1 w-full lg:w-auto">
+              
+              <div className="flex  items-center justify-between gap-4 w-full lg:w-auto">
+                <div className="flex flex-col">
+                <div className="flex gap-1 text-xs text-gray-400 mb-1 w-full lg:w-auto">
                 <span>Today, 12 September</span>
               </div>
-              <div className="flex items-center justify-between gap-4 w-full lg:w-auto">
                 <div className="flex flex-col items-start">
                   <div className="text-3xl lg:text-4xl font-light text-white mb-0.5">
                     29°
@@ -156,6 +148,7 @@ function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
                   <div className="flex items-center justify-start gap-2 text-xs text-gray-400 mb-0.5">
                     <span>Cloudy</span>
                   </div>
+                </div>
                 </div>
                 <Cloud />
                 <div className="flex flex-col items-start gap-3 text-xs text-gray-500">
@@ -171,9 +164,8 @@ function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
               </div>
             </div>
           </CardHeader>
-        </Card> 
-
-        <div className="border-b border-zinc-800/50 overflow-x-auto">
+        </Card>
+        <div className="border-b border-zinc-800/50 overflow-x-auto flex-shrink-0">
           <Tabs
             value={activeTab}
             onValueChange={setActiveTab}
@@ -225,32 +217,25 @@ function ProjectDetailsUi({ projectData, projectUsersData }: Props) {
             </TabsList>
           </Tabs>
         </div>
-
-        <div className="flex-1 bg-black/80 backdrop-blur-sm rounded-lg border border-gray-800/50">
+        <div className="flex-1 bg-black/80 backdrop-blur-sm rounded-lg border border-gray-800/50 overflow-hidden flex flex-col">
           {activeTab === "crew" && (
             <UserTableContainer users={projectUsersData} isProjectView={true} />
           )}
-
           {activeTab === "script" && (
             <EmptyState message="Script content goes here" />
           )}
-
           {activeTab === "payment" && (
             <EmptyState message="Payment Info Snapshot content goes here" />
           )}
-
           {activeTab === "expenses" && (
             <EmptyState message="Expenses & Inventory content goes here" />
           )}
-
           {activeTab === "schedule" && (
             <EmptyState message="Call Sheet & Scheduling content goes here" />
           )}
-
           {activeTab === "documents" && (
             <EmptyState message="Documents & Files content goes here" />
           )}
-
           {activeTab === "notes" && (
             <EmptyState message="Notes content goes here" />
           )}

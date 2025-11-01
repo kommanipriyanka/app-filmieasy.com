@@ -59,31 +59,31 @@ return (
               {errors.fullName && <p className="text-red-500 text-xs mt-1">{errors.fullName}</p>}
             </div>
             <div>
-              <Label className="text-xs text-zinc-300 mb-2 block">
-                Gender
-              </Label>
-              <RadioGroup value={formData.gender} onValueChange={(v) => onUpdate({ gender: v })} className="flex gap-4">
-                <div className="flex items-center gap-2 bg-black/40 border border-zinc-800/50 rounded px-3 py-2">
-                  <RadioGroupItem value="Female" id="r1" className="border-zinc-700" />
-                  <Label htmlFor="r1" className="text-xs text-zinc-300 cursor-pointer font-normal flex items-center gap-1.5">
-                    <FemaleIcon /> Female
-                  </Label>
-                </div>
-                <div className="flex items-center gap-2 bg-black/40 border border-zinc-800/50 rounded px-3 py-2">
-                  <RadioGroupItem value="Male" id="r2" className="border-zinc-700" />
-                  <Label htmlFor="r2" className="text-xs text-zinc-300 cursor-pointer font-normal flex items-center gap-1.5">
-                    <MaleIcon /> Male
-                  </Label>
-                </div>
-                <div className="flex items-center gap-2 bg-black/40 border border-zinc-800/50 rounded px-3 py-2">
-                  <RadioGroupItem value="Others" id="r3" className="border-zinc-700" />
-                  <Label htmlFor="r3" className="text-xs text-zinc-300 cursor-pointer font-normal flex items-center gap-1.5">
-                    <OthersIcon /> Others
-                  </Label>
-                </div>
-              </RadioGroup>
-              {errors.gender && <p className="text-red-500 text-xs mt-1">{errors.gender}</p>}
-            </div>
+  <Label className="text-xs text-zinc-300 mb-2 block">
+    Gender
+  </Label>
+  <RadioGroup value={formData.gender} onValueChange={(v) => onUpdate({ gender: v })} className="flex gap-4">
+    <div className="flex items-center gap-2 bg-(--input-bg) border-zinc-800/50 rounded px-3 py-2">
+      <RadioGroupItem value="Female" id="r1" className="border-zinc-700 data-[state=checked]:bg-white data-[state=checked]:border-white" />
+      <Label htmlFor="r1" className="text-xs text-zinc-300 cursor-pointer font-normal flex items-center gap-1.5">
+        <FemaleIcon /> Female
+      </Label>
+    </div>
+    <div className="flex items-center gap-2 bg-(--input-bg) border-zinc-800/50 rounded px-3 py-2">
+      <RadioGroupItem value="Male" id="r2" className="border-zinc-700 data-[state=checked]:bg-white data-[state=checked]:border-white" />
+      <Label htmlFor="r2" className="text-xs text-zinc-300 cursor-pointer font-normal flex items-center gap-1.5">
+        <MaleIcon /> Male
+      </Label>
+    </div>
+    <div className="flex items-center gap-2 bg-(--input-bg) border-zinc-800/50 rounded px-3 py-2">
+      <RadioGroupItem value="Others" id="r3" className="border-zinc-700 data-[state=checked]:bg-white data-[state=checked]:border-white" />
+      <Label htmlFor="r3" className="text-xs text-zinc-300 cursor-pointer font-normal flex items-center gap-1.5">
+        <OthersIcon /> Others
+      </Label>
+    </div>
+  </RadioGroup>
+  {errors.gender && <p className="text-red-500 text-xs mt-1">{errors.gender}</p>}
+</div>
             <div>
               <Label className="text-xs text-zinc-300 mb-2 block">
                 Date of Birth

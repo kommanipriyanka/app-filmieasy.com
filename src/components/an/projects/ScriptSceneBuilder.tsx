@@ -20,6 +20,7 @@ import { CalendarIcon, Clock } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface ScriptFormData {
   scenes: {
@@ -82,7 +83,11 @@ function ScriptSceneBuilder({
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-7xl mx-auto h-full">
+
+
+      
       <div className="space-y-4 h-full">
+        <ScrollArea className="h-[calc(100vh-200px)]"> 
         <div className="border border-zinc-800/50 rounded-lg p-4 h-full flex flex-col">
           <h3 className="text-sm font-medium mb-4 text-zinc-300 flex items-center gap-2">
             <span className="w-1.5 h-1.5 bg-green-500 rounded-full"></span>
@@ -216,6 +221,7 @@ function ScriptSceneBuilder({
           </div>
           {errors.scenes && <p className="text-red-500 text-xs mt-1 px-1">{errors.scenes}</p>}
         </div>
+        </ScrollArea>
       </div>
       <div className="space-y-4 h-full">
         <div className="bg-zinc-900/40 backdrop-blur-sm border border-zinc-800/50 rounded-lg p-4 h-full flex flex-col">
@@ -254,6 +260,7 @@ function ScriptSceneBuilder({
           </div>
         </div>
       </div>
+     
     </div>
   );
 }

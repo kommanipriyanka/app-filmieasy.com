@@ -1,8 +1,12 @@
 import { DataTableProps } from '@/lib/interfaces/core';
-import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table'
+import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
 import { ScrollArea } from '../ui/scroll-area';
 
-function DataTable({ data, columns, sorting, setSorting, isLoading }: DataTableProps) {
+interface DataTableWithHeightProps extends DataTableProps {
+  maxHeight?: string;
+}
+
+function DataTable({ data, columns, sorting, setSorting, isLoading, maxHeight }: DataTableWithHeightProps) {
   const table = useReactTable({
     data,
     columns,
@@ -16,22 +20,18 @@ function DataTable({ data, columns, sorting, setSorting, isLoading }: DataTableP
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-96">
+      <div className="flex items-center justify-center h-full p-2">
         <div className="text-zinc-500">Loading...</div>
       </div>
     );
   }
 
- 
-
   return (
-    <div className="overflow-x-auto">
-      
-      <table className="w-full text-[11px] overflow-scroll border border-zinc-800/30 rounded-lg">
-          <ScrollArea className="h-[calc(100vh-24vh)]"> 
-        <thead >
+    <div className="h-full p-2 border border-zinc-800/30 rounded-lg overflow-hidden flex flex-col">
+      <table className="w-full text-[11px] flex-shrink-0">
+        <thead className="sticky top-0 z-10 bg-[#0a0a0a] border-b border-zinc-800">
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id} className="border-b border-zinc-800 sticky top-0  rounded-2xl bg-(--an-table-header-bg)">
+            <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
@@ -63,19 +63,48 @@ function DataTable({ data, columns, sorting, setSorting, isLoading }: DataTableP
             </tr>
           ))}
         </thead>
-        <tbody className="divide-y divide-zinc-800">
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id} className="hover:bg-zinc-900/50 border-b border-zinc-800/30 transition-colors">
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className="px-2 py-1 text-white text-[11px] whitespace-nowrap">
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </ScrollArea>
       </table>
+      
+      <ScrollArea 
+        className="overflow-auto" 
+        style={{ 
+          height: maxHeight || '100%', 
+          maxHeight: maxHeight || '100%' 
+        }}
+      >
+        <table className="w-full text-[11px]">
+          <thead className="invisible">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <th
+                    key={header.id}
+                    className="px-2 py-2 text-left text-zinc-300 font-semibold uppercase tracking-wider whitespace-nowrap"
+                  >
+                    {header.isPlaceholder ? null : (
+                      flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )
+                    )}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody className="divide-y divide-zinc-800">
+            {table.getRowModel().rows.map((row) => (
+              <tr key={row.id} className="hover:bg-zinc-900/50 border-b border-zinc-800/30 transition-colors">
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id} className="px-2 py-1 text-white text-[11px] whitespace-nowrap">
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </ScrollArea>
     </div>
   );
 }

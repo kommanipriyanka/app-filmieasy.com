@@ -22,7 +22,7 @@ function ProjectsTableContainer() {
   const [selectedDate, setSelectedDate] = useState(initialDate);
   const [sorting, setSorting] = useState<any[]>([]);
 
-  // Debounce search value for API/query
+ 
   useEffect(() => {
     const timer = setTimeout(() => {
       setSearchValue(searchInput);
@@ -95,7 +95,7 @@ const transformedProjects = (projectsResponse?.records || []).map((project: any)
     if (selectedStatus) params.status = selectedStatus;
     if (selectedDate) params.date = selectedDate;
     navigate({ to: "/projects", search: params });
-  }, [page, pageSize, searchValue, selectedStatus, selectedDate, navigate]);
+  }, [page, pageSize, searchValue, selectedStatus, selectedDate]);
 
   return (
     <ProjectsTable

@@ -5,6 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 import { $fetch } from "@/http/fetch";
 import { createUserAPI, getAllDepartmentsAPI } from "@/http/services/team";
 import AddUserForm from "../an/Team/AddUserForm";
+import { toast } from "sonner";
+import { useNavigate } from "@tanstack/react-router";
 
 interface FormData {
   personal: {
@@ -71,6 +73,7 @@ function AddUserContainer() {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const navigate = useNavigate();
 
   const { data: departmentsData, isLoading: departmentsLoading } = useQuery({
     queryKey: ["departments"],
@@ -118,12 +121,15 @@ function AddUserContainer() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
       setCurrentStep(1);
+      toast.success("User created successfully");
       setFormData(initialFormData);
       setErrors({});
+      navigate({ to: "/team" });
     },
     onError: (error: any) => {
-      if (error?.response?.status === 422) {
-        const errData = error.response.data.errData;
+      console.log(error?.data, "error adfjdsf");
+      if (error?.data?.status === 422) {
+        const errData = error.data.errData;
         const transformedErrors: Record<string, string> = {};
         Object.entries(errData).forEach(([key, message]) => {
           let fieldKey: string;
@@ -197,7 +203,6 @@ function AddUserContainer() {
   };
 
   const updateLanguage = (index: number, name: string) => {
-    // No-op since languages are now predefined and not editable via input
   };
 
   const addDocument = (file: File) => {

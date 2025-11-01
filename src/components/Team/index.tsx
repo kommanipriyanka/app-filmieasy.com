@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocation, useNavigate } from "@tanstack/react-router";
 import UsersTable from "../an/Team/GetUsers";
@@ -22,7 +22,6 @@ function UserTableContainer({ users: projectUsers, isProjectView = false }: User
   const initialDepartment = searchParams.get("department") || "";
   const initialStatus = searchParams.get("status") || "";
   const initialDate = searchParams.get("date") || "";
-
   const [page, setPage] = useState(initialPage);
   const [pageSize, setPageSize] = useState(initialPageSize);
   const [searchValue, setSearchValue] = useState(initialSearch);
@@ -76,7 +75,7 @@ function UserTableContainer({ users: projectUsers, isProjectView = false }: User
       const response = await getAllUsersAPI(params.toString());
       return response?.data?.data;
     },
-    enabled: !isProjectView, 
+    enabled: !isProjectView,
   });
 
   const createDepartmentMutation = useMutation({
@@ -102,10 +101,9 @@ function UserTableContainer({ users: projectUsers, isProjectView = false }: User
     createDepartmentMutation.mutate(name);
   };
 
-  const rawUsers = isProjectView 
-    ? (projectUsers || []) 
+  const rawUsers = isProjectView
+    ? (projectUsers || [])
     : (usersResponse?.records || []);
-
   const allTransformedUsers = rawUsers.map((user: any) => ({
     id: user.id,
     fullName: user.full_name,
@@ -118,26 +116,26 @@ function UserTableContainer({ users: projectUsers, isProjectView = false }: User
     charges: user.charges,
     status: user.status,
   }));
-
+  
   let filteredUsers = [...allTransformedUsers];
   
   if (isProjectView) {
     if (searchValue) {
-      filteredUsers = filteredUsers.filter(user => 
+      filteredUsers = filteredUsers.filter(user =>
         user.fullName?.toLowerCase().includes(searchValue.toLowerCase()) ||
         user.email?.toLowerCase().includes(searchValue.toLowerCase()) ||
         user.phone?.toLowerCase().includes(searchValue.toLowerCase())
       );
     }
-    
+   
     if (selectedDepartment) {
-      filteredUsers = filteredUsers.filter(user => 
+      filteredUsers = filteredUsers.filter(user =>
         user.department?.toLowerCase() === selectedDepartment.toLowerCase()
       );
     }
-    
+   
     if (selectedStatus) {
-      filteredUsers = filteredUsers.filter(user => 
+      filteredUsers = filteredUsers.filter(user =>
         user.status?.toLowerCase() === selectedStatus.toLowerCase()
       );
     }
@@ -145,15 +143,14 @@ function UserTableContainer({ users: projectUsers, isProjectView = false }: User
 
   let paginatedUsers: any[];
   let paginationInfo: any;
-
   if (isProjectView) {
     const totalRecords = filteredUsers.length;
     const totalPages = Math.ceil(totalRecords / pageSize);
     const startIndex = (page - 1) * pageSize;
     const endIndex = startIndex + pageSize;
-    
+   
     paginatedUsers = filteredUsers.slice(startIndex, endIndex);
-    
+   
     paginationInfo = {
       total_records: totalRecords,
       total_pages: totalPages,
@@ -175,10 +172,10 @@ function UserTableContainer({ users: projectUsers, isProjectView = false }: User
   }
 
   const departmentsWithCount = [
-    { 
-      id: "all", 
-      name: "All", 
-      count: isProjectView ? allTransformedUsers.length : paginationInfo.total_records 
+    {
+      id: "all",
+      name: "All",
+      count: isProjectView ? allTransformedUsers.length : paginationInfo.total_records
     },
     ...(departmentsData || []).map((dept) => ({
       id: dept.id,
@@ -232,8 +229,9 @@ function UserTableContainer({ users: projectUsers, isProjectView = false }: User
       onResetSuccess={() => setDepartmentSuccess(false)}
       onClearError={() => setDepartmentError(null)}
       showSidebar={showSidebar}
+      isProjectView={isProjectView}
     />
   );
 }
 
-export default UserTableContainer; 
+export default UserTableContainer;
