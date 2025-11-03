@@ -74,11 +74,14 @@ export interface AddProjectFormProps {
   onUpdateTeamMember: (index: number, updates: Partial<{ department: string; role: string }>) => void;
   onAddScene: () => void;
   onRemoveScene: (index: number) => void;
+  onUploadFile: (file: File) => Promise<string | null>;
   onUpdateScene: (index: number, updates: Partial<FormData["script"]["scenes"][0]>) => void;
   onUpdateScreenplay: (updates: Partial<FormData["script"] & { screenplayTitle?: string; screenplaySubtitle?: string }>) => void;
   onNext: () => void;
+  onUploadDocument: (file: File | any) => void;
   onPrev: () => void;
   onSubmit: () => void;
+  handleImageUpload: (file: File) => void;
   isLoading: boolean;
   errors: Record<string, string>;
 }
@@ -122,4 +125,24 @@ export interface UserData {
 export interface Props {
   projectData?: ProjectData;
   projectUsersData: UserData[];
+}
+
+
+export interface ProjectFormData {
+  name: string;
+  status: string;
+  genre: string;
+  language: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  estimatedBudget: string;
+  profileImage?: string;
+}
+
+export interface ProjectDetailsProps {
+  formData: ProjectFormData;
+  onUpdate: (updates: Partial<ProjectFormData>) => void;
+  errors: Record<string, string>;
+  handleImageUpload: (file: File) => void;
 }

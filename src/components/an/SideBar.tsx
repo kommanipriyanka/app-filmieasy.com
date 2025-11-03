@@ -34,7 +34,7 @@ function SideBar() {
             <SidebarMenu>
               <div className="flex flex-col p-3">
                 <Link
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10  group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
                   to="/dashboard"
                 >
                   <div className="flex items-center gap-3 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-0.5">
@@ -45,7 +45,7 @@ function SideBar() {
                   </div>
                 </Link>
                 <Link
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10  group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
                   to="/projects"
                 >
                   <div className="flex items-center gap-3 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-0.5">
@@ -57,7 +57,7 @@ function SideBar() {
                 </Link>
 
                 <Link
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10  group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
                   to="/expenses"
                 >
                   <div className="flex items-center gap-3 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-0.5">
@@ -68,7 +68,7 @@ function SideBar() {
                   </div>
                 </Link>
                 <Link
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10  group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
                   to="/team"
                 >
                   <div className="flex items-center gap-3 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-0.5">
@@ -81,7 +81,7 @@ function SideBar() {
 
 
                 <Link
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10  group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
                   to="/location"
                 >
                   <div className="flex items-center gap-3 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-0.5">
@@ -94,7 +94,7 @@ function SideBar() {
 
 
                 <Link
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10  group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
                   to="/distrbution"
                 >
                   <div className="flex items-center gap-3 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-0.5">
@@ -106,7 +106,7 @@ function SideBar() {
                 </Link>
 
                 <Link
-                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10  group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
                   to="/settings"
                 >
                   <div className="flex items-center gap-3 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-0.5">
@@ -124,7 +124,7 @@ function SideBar() {
       <SidebarFooter className="flex items-center justify-center">
         <SidebarTrigger className="-ml-1" />
         <Link
-          className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10 transition-colors group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
+          className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-white/10  group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:gap-1 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2"
           to="/"
         >
           <span className="group-data-[collapsible=icon]:text-[14px] group-data-[collapsible=icon]:leading-tight">

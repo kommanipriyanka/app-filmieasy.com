@@ -21,16 +21,21 @@ function AddProjectForm({
   onRemoveScene,
   onUpdateScene,
   onUpdateScreenplay,
+  onUploadFile,
   onNext,
   onPrev,
   onSubmit,
+  handleImageUpload,
   isLoading,
   errors,
 }: AddProjectFormProps) {
   const navigate = useNavigate();
-
   const backgroundImages = [screen1, screen2, screen3];
   const currentBg = backgroundImages[currentStep - 1] || screen1;
+
+  const teamMembers = availableUsers.filter(user =>
+    formData.team.members.some(member => member.userId === user.id)
+  );
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-black/80">
@@ -67,7 +72,7 @@ function AddProjectForm({
               )}
             </div>
           </div>
-          
+         
           <div className="flex justify-center mb-3 overflow-x-auto pb-2 gap-4">
             {[1, 2, 3].map((step) => (
               <div
@@ -98,13 +103,14 @@ function AddProjectForm({
               </div>
             ))}
           </div>
-          
+         
           <div className={`flex-1 ${currentStep === 2 ? 'overflow-hidden' : 'overflow-y-auto pr-2'}`}>
             {currentStep === 1 && (
               <ProjectDetails
                 formData={formData.project}
                 onUpdate={onUpdateProject}
                 errors={errors}
+                handleImageUpload={handleImageUpload}
               />
             )}
             {currentStep === 2 && (
@@ -120,10 +126,12 @@ function AddProjectForm({
             {currentStep === 3 && (
               <ScriptSceneBuilder
                 formData={formData.script}
+                availableUsers={teamMembers}
                 onAddScene={onAddScene}
                 onRemoveScene={onRemoveScene}
                 onUpdateScene={onUpdateScene}
                 onUpdateScreenplay={onUpdateScreenplay}
+                onUploadFile={onUploadFile}
                 errors={errors}
               />
             )}

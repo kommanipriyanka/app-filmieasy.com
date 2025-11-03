@@ -1,4 +1,3 @@
-// AddProject.tsx
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
@@ -7,38 +6,12 @@ import AddProjectForm from "../an/projects/AddProjectForm";
 import { getAllUsersAPI } from "@/http/services/team";
 import { toast } from "sonner";
 import { useNavigate } from "@tanstack/react-router";
-import { set } from "date-fns";
-
-interface FormData {
-  project: {
-    name: string;
-    status: string;
-    genre: string;
-    language: string;
-    description: string;
-    startDate: string;
-    endDate: string;
-    estimatedBudget: string;
-    profileImage?: string;
-  };
-  team: {
-    members: { userId: string }[];
-  };
-  script: {
-    scenes: {
-      name: string;
-      description: string;
-      members: string[];
-      location: string;
-      date: string;
-      timeFrom: string;
-      timeTo: string;
-      locationType: "indoor" | "outdoor";
-    }[];
-    screenplayTitle: string;
-    screenplaySubtitle: string;
-  };
-}
+import { FormData } from "@/lib/interfaces/AddProject";
+import {
+  getFileAPI,
+  getS3UploadUrl,
+  uploadToPresignedUrl,
+} from "@/http/services/file";
 
 const initialFormData: FormData = {
   project: {
@@ -101,51 +74,91 @@ function AddProject() {
       const endDateFormatted = !isEmpty(data.project?.endDate)
         ? data.project.endDate
         : null;
-
       const members = !isEmpty(data.team?.members)
         ? data.team.members.map((m: any) => Number(m.userId))
+        : [];
+      const language = !isEmpty(data.project?.language)
+        ? data.project.language
         : null;
-
-      const scenes = !isEmpty(data.script?.scenes)
+      const languages = language ? [language] : [];
+      const estimatedBudget = !isEmpty(data.project?.estimatedBudget)
+        ? Number(data.project.estimatedBudget)
+        : null;
+      const scenesRaw = !isEmpty(data.script?.scenes)
         ? data.script.scenes.filter((s: any) => !isEmpty(s.name))
-        : null;
+        : [];
+      const projectScenes =
+        scenesRaw.length > 0
+          ? scenesRaw.map((s: any) => {
+              const scene: any = {
+                name: s.name,
+                description: s.description,
+              };
 
-      const payload = {
-        name: isEmpty(data.project?.name) ? null : data.project.name,
-        status: data.project?.status ? data.project.status : undefined,
-        genre: data.project?.genre ? data.project.genre : undefined,
-        language: data.project?.language ? data.project.language : undefined,
-        description: data.project?.description
-          ? data.project.description
-          : undefined,
-        ...(startDateFormatted ? { start_date: startDateFormatted } : {}),
-        ...(endDateFormatted ? { end_date: endDateFormatted } : {}),
-        ...(data.project?.estimatedBudget
-          ? { estimated_budget: data.project.estimatedBudget }
-          : {}),
-        ...(data.project?.genre ? { genre: data.project.genre } : {}),
-        ...(data.project?.language ? { language: data.project.language } : {}),
-        ...(data.project?.description
+              if (s.date) {
+                scene.start_date = s.date;
+                scene.end_date = s.date;
+              }
+              if (s.members && s.members.length > 0) {
+                scene.scene_members = s.members.map((id: string) => Number(id));
+              }
+              if (s.uploadedDocument) {
+                scene.scene_path = s.uploadedDocument;
+              }
+              if (s.location) {
+                scene.location = s.location;
+              }
+              if (s.locationType) {
+                scene.location_type = s.locationType;
+              }
+              if (s.timeFrom) {
+                scene.time_from = s.timeFrom;
+              }
+              if (s.timeTo) {
+                scene.time_to = s.timeTo;
+              }
+
+              return scene;
+            })
+          : [];
+      const payload: any = {
+        name: data.project?.name || null,
+        ...(!isEmpty(data.project?.description)
           ? { description: data.project.description }
           : {}),
-        ...(members ? { team_members: members } : {}),
-
-        ...(scenes ? { scenes: scenes } : {}),
-        ...(data.script?.screenplayTitle
+        ...(!isEmpty(data.project?.genre) ? { genre: data.project.genre } : {}),
+        ...(languages.length > 0 ? { languages } : {}),
+        ...(estimatedBudget ? { estimated_budget: estimatedBudget } : {}),
+        ...(startDateFormatted ? { start_date: startDateFormatted } : {}),
+        ...(endDateFormatted ? { end_date: endDateFormatted } : {}),
+        ...(!isEmpty(data.project?.status)
+          ? { status: data.project.status }
+          : {}),
+        ...(!isEmpty(data.project?.profileImage) &&
+        !data.project?.profileImage.startsWith("data:image/")
+          ? { project_logo: data.project.profileImage }
+          : {}),
+        ...(members.length > 0 ? { team_members: members } : {}),
+        ...(projectScenes.length > 0 ? { project_scenes: projectScenes } : {}),
+        ...(!isEmpty(data.script?.screenplayTitle)
           ? { screenplay_title: data.script.screenplayTitle }
           : {}),
-        ...(data.script?.screenplaySubtitle
+        ...(!isEmpty(data.script?.screenplaySubtitle)
           ? { screenplay_subtitle: data.script.screenplaySubtitle }
           : {}),
       };
 
+      Object.keys(payload).forEach((key) => {
+        if (payload[key] === null || payload[key] === undefined) {
+          delete payload[key];
+        }
+      });
       return createProjectAPI(payload);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       toast.success("Project created successfully");
       setCurrentStep(1);
-      toast.success("Project created successfully");
       setFormData(initialFormData);
       setErrors({});
       navigate({ to: "/projects" });
@@ -153,8 +166,9 @@ function AddProject() {
     onError: (error: any) => {
       setCurrentStep(1);
       toast.error("Failed to create project");
-      if (error?.data?.status === 422 ) {
-        const errData = error.data.errData;
+      if (error?.data?.status === 422) {
+        const errData = error?.data?.errData;
+        if (!errData) return;
         const transformedErrors: Record<string, string> = {};
         Object.entries(errData).forEach(([key, message]) => {
           let fieldKey: string;
@@ -168,8 +182,12 @@ function AddProject() {
             case "team_members":
               fieldKey = "team";
               break;
+            case "project_scenes":
             case "scenes":
               fieldKey = "scenes";
+              break;
+            case "project_logo":
+              fieldKey = "profileImage";
               break;
             default:
               fieldKey = key;
@@ -177,9 +195,8 @@ function AddProject() {
           transformedErrors[fieldKey] = message as string;
         });
         setErrors(transformedErrors);
-        console.log(transformedErrors);
       } else {
-        setErrors({ general: error.message || "An error occurred" });
+        setErrors({ general: error?.message || "An error occurred" });
       }
     },
   });
@@ -194,6 +211,43 @@ function AddProject() {
       delete newErrors[key];
     });
     setErrors(newErrors);
+  };
+
+  const handleFileUpload = async (file: File) => {
+    if (!file) return null;
+    const s3Data = {
+      name: file.name,
+      contentType: file.type,
+    };
+    try {
+      const response = await getS3UploadUrl(s3Data);
+      const signedUrl = response?.data?.data?.uploadUrl;
+      const fileKey = response?.data?.data?.path;
+      if (!signedUrl) throw new Error("Failed to get signed upload URL");
+      await uploadToPresignedUrl(signedUrl, file);
+      const resp = await getFileAPI(fileKey);
+      console.log(resp.data.data,"resp");
+      return resp?.data?.path || resp?.data?.fileKey || fileKey;
+
+    } catch (error: any) {
+      toast.error(error.message || "File upload failed");
+      return null;
+    }
+  };
+
+  const handleImageUpload = async (file: File) => {
+    const path = await handleFileUpload(file);
+    if (path) {
+      clearFieldErrors(["profileImage"]);
+      updateFormData({
+        project: { ...formData.project, profileImage: path },
+      });
+    }
+    return path;
+  };
+
+  const onUploadDocument = async (file: File) => {
+    return await handleFileUpload(file);
   };
 
   const updateProject = (updates: Partial<FormData["project"]>) => {
@@ -226,23 +280,27 @@ function AddProject() {
     updateFormData({ team: { members } });
   };
 
-  const addScene = () => {
+  const addScene = (sceneData?: Partial<FormData["script"]["scenes"][0]>) => {
     clearFieldErrors(["scenes"]);
+
+    const newScene = sceneData || {
+      name: "",
+      description: "",
+      members: [],
+      location: "",
+      date: "",
+      timeFrom: "",
+      timeTo: "",
+      locationType: "indoor" as const,
+      uploadedDocument: null,
+    };
+
     updateFormData({
       script: {
         ...formData.script,
         scenes: [
           ...formData.script.scenes,
-          {
-            name: "",
-            description: "",
-            members: [],
-            location: "",
-            date: "",
-            timeFrom: "",
-            timeTo: "",
-            locationType: "indoor",
-          },
+          newScene as FormData["script"]["scenes"][0],
         ],
       },
     });
@@ -286,7 +344,12 @@ function AddProject() {
     mutation.mutate(formData);
   };
 
+  if (usersLoading) {
+    return <div>Loading...</div>;
+  }
+
   const isLoading = mutation.isPending;
+
   return (
     <AddProjectForm
       currentStep={currentStep}
@@ -300,9 +363,12 @@ function AddProject() {
       onRemoveScene={removeScene}
       onUpdateScene={updateScene}
       onUpdateScreenplay={updateScreenplay}
+      onUploadFile={onUploadDocument}
+      onUploadDocument={onUploadDocument}
       onNext={nextStep}
       onPrev={prevStep}
       onSubmit={handleSubmit}
+      handleImageUpload={handleImageUpload}
       isLoading={isLoading}
       errors={errors}
     />

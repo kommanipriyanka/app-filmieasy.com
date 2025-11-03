@@ -73,7 +73,7 @@ function DataTable({ data, columns, sorting, setSorting, isLoading, maxHeight }:
           </thead>
           <tbody className="divide-y divide-zinc-800">
             {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className="hover:bg-zinc-900/50 border-b border-zinc-800/30 transition-colors">
+              <tr key={row.id} className="hover:bg-zinc-900/50 border-b border-zinc-800/30 ">
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className="px-2 py-1 text-white text-[11px] whitespace-nowrap">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}

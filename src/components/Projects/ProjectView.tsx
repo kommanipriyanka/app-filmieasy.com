@@ -1,13 +1,13 @@
 import { getProjectAPI, getProjectUsersAPI } from '@/http/services/projects';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from '@tanstack/react-router';
-import React from 'react'
 import ProjectDetailsUi from '../an/projects/ProjectDetailsUi';
+import { toast } from 'sonner';
 
 function ProjectView() {
   const { project_id } = useParams({strict: false});
   
-  const { data: projectData, isLoading: projectLoading, error: projectError } = useQuery({
+  const { data: projectData, isLoading: projectLoading, error: projectError, isError } = useQuery({
     queryKey: ["project", project_id],
     queryFn: async () => {
       if (!project_id) throw new Error("Project ID is required");
@@ -17,9 +17,7 @@ function ProjectView() {
     enabled: !!project_id,
   })
 
-  console.log(projectData, "projectData");
-
-  const { data: projectUsersData, isLoading: projectUsersLoading, error: projectUsersError } = useQuery({
+  const { data: projectUsersData, isLoading: projectUsersLoading, error: projectUsersError, isError: projectUsersIsError } = useQuery({
     queryKey: ["projectUsers", project_id],
     queryFn: async () => {
       if (!project_id) throw new Error("Project ID is required");
@@ -29,7 +27,22 @@ function ProjectView() {
     enabled: !!project_id,
   })
 
-  console.log(projectUsersData, "projectUsersData");
+  if(isError){
+    toast.error(projectError?.message);
+    console.log(projectError);
+    return <div>Error Loading Project</div>
+  }
+
+  if(projectUsersIsError){
+    toast.error(projectUsersError?.message);
+    console.log(projectUsersError);
+    return <div>Error Loading Project Users</div>
+  }
+  
+
+  if(projectLoading || projectUsersLoading){
+    return <div>Loading...</div>
+  }
 
 
   return (

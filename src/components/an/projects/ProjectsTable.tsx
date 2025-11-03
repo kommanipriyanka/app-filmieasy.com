@@ -192,15 +192,15 @@ function ProjectsTable({
                     className="h-8 pl-8 pr-2.5 bg-zinc-900/50 border-2 border-zinc-700 rounded-lg text-xs text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-zinc-700 focus:border-zinc-700 w-[160px]"
                   />
                 </div>
-                 <button className="h-8 flex items-center gap-1.5 px-3 bg-(--an-import-bg) border border-zinc-800/50 rounded-lg text-xs font-normal text-white hover:bg-zinc-800 transition-colors cursor-pointer">
+                 <button className="h-8 flex items-center gap-1.5 px-3 bg-(--an-import-bg) border border-zinc-800/50 rounded-lg text-xs font-normal text-white hover:bg-zinc-800  cursor-pointer">
                   <Upload className="w-3 h-3" />
                   Import
                 </button>
-                <button className="h-8 flex items-center gap-1.5 px-3 bg-(--an-import-bg) border border-zinc-800/50 rounded-lg text-xs font-normal text-white hover:bg-zinc-800 transition-colors cursor-pointer">
+                <button className="h-8 flex items-center gap-1.5 px-3 bg-(--an-import-bg) border border-zinc-800/50 rounded-lg text-xs font-normal text-white hover:bg-zinc-800  cursor-pointer">
                   <Download className="w-3 h-3" />
                   Download
                 </button>
-                <button onClick={()=>{navigate({to:"/projects/add-project"})}} className="h-8 flex items-center gap-1.5 px-3 bg-(--add-btn-bg) cursor-pointer hover:bg-blue-700 rounded-lg text-xs font-medium text-white transition-colors">
+                <button onClick={()=>{navigate({to:"/projects/add-project"})}} className="h-8 flex items-center gap-1.5 px-3 bg-(--add-btn-bg) cursor-pointer hover:bg-blue-700 rounded-lg text-xs font-medium text-white ">
                   <Plus className="w-3 h-3" />
                   Add New Project
                 </button>

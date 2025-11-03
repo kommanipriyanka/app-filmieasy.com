@@ -156,7 +156,7 @@ function SignupForm({
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white "
                   >
                     {showPassword ? (
                       <EyeOff className="h-4 w-4" />
@@ -189,7 +189,7 @@ function SignupForm({
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white "
                   >
                     {showConfirmPassword ? (
                       <EyeOff className="h-4 w-4" />
@@ -205,7 +205,7 @@ function SignupForm({
               <Button
                 onClick={onSignup}
                 disabled={isLoading}
-                className="w-full bg-blue-500 hover:bg-blue-600 text-white transition-colors cursor-pointer disabled:opacity-50"
+                className="w-full bg-blue-500 hover:bg-blue-600 text-white  cursor-pointer disabled:opacity-50"
                 size="lg"
               >
                 {isLoading ? "Signing Up..." : "Sign Up"}
@@ -214,7 +214,7 @@ function SignupForm({
                 Already have an account?{" "}
                 <button
                   onClick={onLogin}
-                  className="text-orange-400 hover:text-orange-300 transition-colors font-medium cursor-pointer"
+                  className="text-orange-400 hover:text-orange-300  font-medium cursor-pointer"
                 >
                   Login here.
                 </button>

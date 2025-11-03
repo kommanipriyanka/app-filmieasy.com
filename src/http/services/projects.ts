@@ -2,7 +2,7 @@ import { $fetch } from "../fetch";
 
 export const createProjectAPI = async (formData: any): Promise<any> => {
   try {
-    const response = await $fetch.post(`/project`, formData);
+    const response = await $fetch.post(`/project/create`, formData);
     return response;
   } catch (error) {
     throw error;

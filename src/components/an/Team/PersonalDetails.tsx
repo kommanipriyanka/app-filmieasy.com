@@ -163,7 +163,7 @@ return (
                   />
                   <label
                     htmlFor="image-upload"
-                    className="w-22 h-22 bg-zinc-700/30 rounded-lg border-zinc-800/50 flex items-center justify-center cursor-pointer hover:bg-zinc-700/50 transition-colors"
+                    className="w-22 h-22 bg-zinc-700/30 rounded-lg border-zinc-800/50 flex items-center justify-center cursor-pointer hover:bg-zinc-700/50 "
                   >
                     {formData.profileImage ? (
                       <img src={formData.profileImage} alt="Project" className="w-full h-full object-cover rounded-lg" />

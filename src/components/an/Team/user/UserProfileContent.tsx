@@ -43,7 +43,7 @@ const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   };
 
   return (
-    <Card className="bg-zinc-900/50 rounded-2xl border-zinc-800 overflow-hidden hover:border-zinc-700 transition-colors cursor-pointer group">
+    <Card className="bg-zinc-900/50 rounded-2xl border-zinc-800 overflow-hidden hover:border-zinc-700  cursor-pointer group">
 
       <div className="relative overflow-hidden bg-zinc-900">
         <img
@@ -132,37 +132,37 @@ function UserProfileContent({ projects, activeTab, setActiveTab }: UserProfileCo
           <TabsList className="bg-transparent border-0 h-12 lg:h-14 px-4 lg:px-6 inline-flex min-w-full w-max gap-6">
             <TabsTrigger
               value="projects"
-              className="relative data-[state=active]:bg-transparent data-[state=active]:text-blue-500 data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-blue-500 rounded-none px-0 text-zinc-400 text-sm whitespace-nowrap border-0 hover:text-zinc-300 transition-colors"
+              className="relative data-[state=active]:bg-transparent data-[state=active]:text-blue-500 data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-blue-500 rounded-none px-0 text-zinc-400 text-sm whitespace-nowrap border-0 hover:text-zinc-300 "
             >
               Projects
             </TabsTrigger>
             <TabsTrigger
               value="payment-info"
-              className="relative data-[state=active]:bg-transparent data-[state=active]:text-blue-500 data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-blue-500 rounded-none px-0 text-zinc-400 text-sm whitespace-nowrap border-0 hover:text-zinc-300 transition-colors"
+              className="relative data-[state=active]:bg-transparent data-[state=active]:text-blue-500 data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-blue-500 rounded-none px-0 text-zinc-400 text-sm whitespace-nowrap border-0 hover:text-zinc-300 "
             >
               Payment Info Snapshot
             </TabsTrigger>
             <TabsTrigger
               value="call-sheet"
-              className="relative data-[state=active]:bg-transparent data-[state=active]:text-blue-500 data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-blue-500 rounded-none px-0 text-zinc-400 text-sm whitespace-nowrap border-0 hover:text-zinc-300 transition-colors"
+              className="relative data-[state=active]:bg-transparent data-[state=active]:text-blue-500 data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-blue-500 rounded-none px-0 text-zinc-400 text-sm whitespace-nowrap border-0 hover:text-zinc-300 "
             >
               Call Sheet & Scheduling
             </TabsTrigger>
             <TabsTrigger
               value="documents"
-              className="relative data-[state=active]:bg-transparent data-[state=active]:text-blue-500 data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-blue-500 rounded-none px-0 text-zinc-400 text-sm whitespace-nowrap border-0 hover:text-zinc-300 transition-colors"
+              className="relative data-[state=active]:bg-transparent data-[state=active]:text-blue-500 data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-blue-500 rounded-none px-0 text-zinc-400 text-sm whitespace-nowrap border-0 hover:text-zinc-300 "
             >
               Documents & Files
             </TabsTrigger>
             <TabsTrigger
               value="notes"
-              className="relative data-[state=active]:bg-transparent data-[state=active]:text-blue-500 data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-blue-500 rounded-none px-0 text-zinc-400 text-sm whitespace-nowrap border-0 hover:text-zinc-300 transition-colors"
+              className="relative data-[state=active]:bg-transparent data-[state=active]:text-blue-500 data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-blue-500 rounded-none px-0 text-zinc-400 text-sm whitespace-nowrap border-0 hover:text-zinc-300 "
             >
               Notes & Observations
             </TabsTrigger>
             <TabsTrigger
               value="rating"
-              className="relative data-[state=active]:bg-transparent data-[state=active]:text-blue-500 data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-blue-500 rounded-none px-0 text-zinc-400 text-sm whitespace-nowrap border-0 hover:text-zinc-300 transition-colors"
+              className="relative data-[state=active]:bg-transparent data-[state=active]:text-blue-500 data-[state=active]:after:absolute data-[state=active]:after:bottom-0 data-[state=active]:after:left-0 data-[state=active]:after:right-0 data-[state=active]:after:h-0.5 data-[state=active]:after:bg-blue-500 rounded-none px-0 text-zinc-400 text-sm whitespace-nowrap border-0 hover:text-zinc-300 "
             >
               Rating & Review
             </TabsTrigger>

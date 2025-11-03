@@ -42,11 +42,9 @@ function CrewArtists({
   errors,
 }: CrewArtistsProps) {
   const [searchTerm, setSearchTerm] = useState("");
-
   const filteredUsers = availableUsers.filter(user =>
     user.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-7xl mx-auto h-full">
       <div className="space-y-4 h-full">

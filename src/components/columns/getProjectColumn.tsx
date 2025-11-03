@@ -120,13 +120,13 @@ export default function createProjectColumns(): ColumnDef<Project>[] {
       enableSorting: false,
       cell: ({ row }) => (
         <div className="flex items-center gap-2">
-          <Button className="p-1.5 hover:bg-zinc-800 rounded transition-colors">
+          <Button className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer ">
             <EditIcon />
           </Button>
-          <Button onClick={()=>{console.log(row.original.id, "jjjjjj"); navigate({to:`/projects/${row.original.id}/users`})}} className="p-1.5 hover:bg-zinc-800 rounded transition-colors">
+          <Button onClick={()=>{console.log(row.original.id, "jjjjjj"); navigate({to:`/projects/${row.original.id}/users`})}} className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer ">
            <ViewIcon  />
           </Button>
-          <Button className="p-1.5 hover:bg-zinc-800 rounded transition-colors">
+          <Button className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer ">
             <OptionsIcon />
           </Button>
         </div>

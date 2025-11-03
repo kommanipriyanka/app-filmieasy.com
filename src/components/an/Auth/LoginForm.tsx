@@ -97,7 +97,7 @@ function LoginForm({
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white "
                   >
                     {showPassword ? (
                       <EyeOff className="h-4 w-4" />
@@ -113,14 +113,14 @@ function LoginForm({
               <div className="text-right">
                 <button
                   onClick={onForgotPassword}
-                  className="text-sm text-gray-300 hover:text-white transition-colors cursor-pointer"
+                  className="text-sm text-gray-300 hover:text-white  cursor-pointer"
                 >
                   Forgot Password ?
                 </button>
               </div>
               <Button
                 onClick={onLogin}
-                className="w-full bg-blue-500 hover:bg-blue-600 text-white transition-colors cursor-pointer"
+                className="w-full bg-blue-500 hover:bg-blue-600 text-white  cursor-pointer"
                 size="lg"
               >
                 Login
@@ -129,7 +129,7 @@ function LoginForm({
                 New to Filmeasey?{" "}
                 <button
                   onClick={() => navigate({ to: "/signup" })}
-                  className="text-orange-400 hover:text-orange-300 transition-colors font-medium cursor-pointer"
+                  className="text-orange-400 hover:text-orange-300  font-medium cursor-pointer"
                 >
                   Sign Up here.
                 </button>

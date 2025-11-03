@@ -57,7 +57,7 @@ class FetchService {
     const refreshToken = Cookies.get("refreshToken");
 
     if (!refreshToken) {
-      window.location.href = "https://www.google.com/";
+      window.location.href = "/";
       return null;
     }
 
@@ -164,10 +164,11 @@ class FetchService {
     }
   }
 
-  async post(url: string, payload?: any) {
+  async post(url: string, payload?: any, headers: Record<string, string> = {}) {
     return await this.hit(url, {
       method: "POST",
       body: payload ? JSON.stringify(payload) : undefined,
+      headers,
     });
   }
 
@@ -207,10 +208,11 @@ class FetchService {
     });
   }
 
-  async put(url: string, payload = {}) {
+  async put(url: string, payload = {}, headers: Record<string, string> = {}) {
     return this.hit(url, {
       method: "PUT",
       body: JSON.stringify(payload),
+      headers
     });
   }
 

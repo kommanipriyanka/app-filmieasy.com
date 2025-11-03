@@ -117,7 +117,6 @@ function createUserColumns(): ColumnDef<User>[] {
         if (!status) {
           return <span className="text-zinc-300">-</span>;
         }
-        // Normalize to lowercase to handle case variations from backend (e.g., "TODO" -> "todo")
         const normalizedStatus = status.toLowerCase() as User["status"];
         const statusStyles: Record<User["status"], string> = {
           todo: "bg-red-500/20 text-red-400",
@@ -146,18 +145,18 @@ function createUserColumns(): ColumnDef<User>[] {
       enableSorting: false,
       cell: ({ row }) => (
         <div className="flex items-center gap-2">
-          <Button className="p-1.5 rounded transition-colors cursor-pointer">
+          <Button className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer">
             <EditIcon />
           </Button>
           <Button
-            className="p-1.5 rounded transition-colors cursor-pointer"
+            className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer"
             onClick={() => {
               navigate({ to: `/team/${row.original.id}` });
             }}
           >
             <ViewIcon />
           </Button>
-          <Button className="p-1.5 rounded transition-colors cursor-pointer">
+          <Button className="p-1.5 bg-transparent hover:bg-zinc-800 rounded  cursor-pointer">
             <OptionsIcon />
           </Button>
         </div>

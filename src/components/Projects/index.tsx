@@ -21,32 +21,16 @@ function ProjectsTableContainer() {
   const [selectedDate, setSelectedDate] = useState(initialDate);
   const [sorting, setSorting] = useState<any[]>([]);
 
- 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setSearchValue(searchInput);
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [searchInput]);
 
-
-  const handleSetStatus = useCallback((value: string) => {
-    setSelectedStatus(value);
-    setPage(1);
-  }, []);
-
-  const handleSetDate = useCallback((value: string) => {
-    setSelectedDate(value);
-    setPage(1);
-  }, []);
-
-  const handleSearchChange = useCallback((value: string) => {
-    setSearchInput(value);
-    setPage(1);
-  }, []);
-
-  const { data: projectsResponse, isLoading: projectsLoading } = useQuery({
-    queryKey: ["projects", page, pageSize, searchValue, selectedStatus, selectedDate],
+  const { data: projectsResponse, isLoading: projectsLoading, error: projectsError, isError } = useQuery({
+    queryKey: [
+      "projects",
+      page,
+      pageSize,
+      searchValue,
+      selectedStatus,
+      selectedDate,
+    ],
     queryFn: async () => {
       const paramObj: Record<string, string> = {
         page: page.toString(),
@@ -61,20 +45,28 @@ function ProjectsTableContainer() {
     },
   });
 
-const transformedProjects = (projectsResponse?.records || []).map((project: any) => ({
-  id: project.id,
-  name: project.name,
-  description: project.description || null,
-  timeline: project.start_date && project.end_date 
-    ? `${project.start_date} - ${project.end_date}` 
-    : null, 
-  budget: project.estimated_budget ? `${project.estimated_budget}/100CR` : null,
-  members: project.membersCount !== undefined ? `${project.membersCount} Members` : null,
-  scenes: project.scenes ? `Scene ${project.scenes}` : null, 
-  status: project.status || null, 
-  address: project.address || null,
-  image: project.image_url || null,
-}));
+  const transformedProjects = (projectsResponse?.records || []).map(
+    (project: any) => ({
+      id: project.id,
+      name: project.name,
+      description: project.description || null,
+      timeline:
+      project.start_date && project.end_date
+      ? `${project.start_date} - ${project.end_date}`
+      : null,
+      budget: project.estimated_budget
+      ? `${project.estimated_budget}/100CR`
+      : null,
+      members:
+        project.membersCount !== undefined
+          ? `${project.membersCount} Members`
+          : null,
+      scenes: project.scenes ? `Scene ${project.scenes}` : null,
+      status: project.status || null,
+      address: project.address || null,
+      image: project.image_url || null,
+    })
+  );
 
   const paginationInfo = projectsResponse?.pagination_info || {
     total_records: 0,
@@ -82,9 +74,9 @@ const transformedProjects = (projectsResponse?.records || []).map((project: any)
     current_page: page,
     page_size: pageSize,
     next_page: null,
-    prev_page: null
+    prev_page: null,
   };
-
+  
   useEffect(() => {
     const params: Record<string, any> = {
       page,
@@ -96,6 +88,33 @@ const transformedProjects = (projectsResponse?.records || []).map((project: any)
     navigate({ to: "/projects", search: params });
   }, [page, pageSize, searchValue, selectedStatus, selectedDate]);
 
+    const handleSetStatus = useCallback((value: string) => {
+    setSelectedStatus(value);
+    setPage(1);
+  }, []);
+  
+  const handleSetDate = useCallback((value: string) => {
+    setSelectedDate(value);
+    setPage(1);
+  }, []);
+
+  const handleSearchChange = useCallback((value: string) => {
+    setSearchInput(value);
+    setPage(1);
+  }, []);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearchValue(searchInput);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [searchInput]);
+  if(projectsLoading) return <div>Loading...</div>;
+
+  if(isError) return <div>
+    <div>Error : {projectsError?.message} </div>
+  </div>;
+
   return (
     <ProjectsTable
       data={transformedProjects}
@@ -105,7 +124,7 @@ const transformedProjects = (projectsResponse?.records || []).map((project: any)
       setPage={setPage}
       setPageSize={setPageSize}
       searchValue={searchInput}
-      setSearchValue={handleSearchChange} 
+      setSearchValue={handleSearchChange}
       selectedDate={selectedDate}
       setSelectedDate={handleSetDate}
       selectedStatus={selectedStatus}

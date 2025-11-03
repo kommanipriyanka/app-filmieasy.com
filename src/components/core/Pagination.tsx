@@ -86,7 +86,7 @@ function Pagination({
         <Button
           onClick={() => setPage(current_page - 1)}
           disabled={current_page <= 1}
-          className="p-1.5 hover:bg-zinc-800 rounded disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          className="p-1.5 hover:bg-zinc-800 rounded disabled:opacity-30 disabled:cursor-not-allowed "
         >
           <ChevronLeft className="w-4 h-4" />
         </Button>
@@ -96,7 +96,7 @@ function Pagination({
             {typeof page === "number" ? (
               <button
                 onClick={() => setPage(page)}
-                className={`px-3 py-1.5 rounded text-sm transition-colors ${
+                className={`px-3 py-1.5 rounded text-sm  ${
                   current_page === page
                     ? "bg-blue-600 text-white font-semibold"
                     : "hover:bg-zinc-800 text-zinc-400"
@@ -113,7 +113,7 @@ function Pagination({
         <Button
           onClick={() => setPage(current_page + 1)}
           disabled={current_page >= total_pages}
-          className="p-1.5 hover:bg-zinc-800 rounded disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          className="p-1.5 hover:bg-zinc-800 rounded disabled:opacity-30 disabled:cursor-not-allowed "
         >
           <ChevronRight className="w-4 h-4" />
         </Button>
